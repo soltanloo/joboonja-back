@@ -1,5 +1,4 @@
 
-
 public class Bid{
     String biddingUser;
     String projectTitle;
