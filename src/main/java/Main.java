@@ -11,9 +11,9 @@ public class Main {
             Pair<String, String> commandParts = getCommandParts();
             String commandName = commandParts.getKey();
             String commandData = commandParts.getValue();
-            system.out.println(commandData);
+            System.out.println(commandData);
 
-            switch (commandName) {
+            switch(commandName) {
                 case "register":
                     System.out.println(commandData);
                     break;
@@ -34,7 +34,7 @@ public class Main {
     private static Pair<String, String> getCommandParts() {
         String command = scanner.nextLine();
         int spaceIndex = command.indexOf(" ");
-        return new Pair<>(command.substring(0, spaceIndex), command.substring(spaceIndex));
+        return new Pair<String, String>(command.substring(0, spaceIndex), command.substring(spaceIndex));
     }
 
 }
