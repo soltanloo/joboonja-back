@@ -1,16 +1,22 @@
-import Skill.java;
-import User.java;
-import Project.java;
-import Bid.java;
-import
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Utilities{
-    public Utilities(){}
+    private ObjectMapper objectMapper;
+    private ArrayList<Project> projects;
+    private ArrayList<User> users;
+    public Utilities(){
+        this.objectMapper = new ObjectMapper();
+        this.projects = new ArrayList<Project>();
+        this.users = new ArrayList<User>();
+    }
 
-    public void register(String commandValue){
-        ObjectMapper objectMapper = new ObjectMapper();
-        User newUser = objectMapper.readValue(commandValue);
-        return newUser;
+    public void register(String commandValue) throws IOException {
+
+        User newUser = this.objectMapper.readValue(commandValue, User.class);
+        users.add(newUser);
     }
 
     public void addProject(String commandValue){
