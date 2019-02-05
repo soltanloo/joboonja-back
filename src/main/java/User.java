@@ -2,27 +2,27 @@
 import Skill.java;
 
 public class User{
-    String uname;
-    ArrayList <Skill> userSkills = new ArrayList <Skill>();
+    String username;
+    ArrayList <Skill> skills = new ArrayList <Skill>();
 
-    public User(String uname, ArrayList<Skill> userSkills) {
-        this.uname = uname;
-        this.userSkills = userSkills;
+    public User(String username, ArrayList<Skill> skills) {
+        this.username = username;
+        this.skills = skills;
     }
 
-    public String getUname() {
-        return uname;
+    public String getusername() {
+        return username;
     }
 
-    public void setUname(String uname) {
-        this.uname = uname;
+    public void setusername(String username) {
+        this.username = username;
     }
 
-    public ArrayList<Skill> getUserSkills() {
-        return userSkills;
+    public ArrayList<Skill> getskills() {
+        return skills;
     }
 
-    public void setUserSkills(ArrayList<Skill> userskills) {
-        this.userSkills = userskills;
+    public void setskills(ArrayList<Skill> skills) {
+        this.skills = skills;
     }
 }
