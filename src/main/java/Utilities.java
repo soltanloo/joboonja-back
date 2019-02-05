@@ -14,12 +14,20 @@ public class Utilities{
     }
 
     public void register(String commandValue) throws IOException {
-
         User newUser = this.objectMapper.readValue(commandValue, User.class);
         users.add(newUser);
     }
 
     public void addProject(String commandValue){
+        Project newPro = this.objectMapper.readValue(commandValue, Project.class);
+        projects.add(newPro);
+    }
 
+    public void bid(String commandValue){
+
+    }
+
+    public void auction(String commandValue){
+        
     }
 }
