@@ -28,6 +28,6 @@ public class Utilities{
     }
 
     public void auction(String commandValue){
-        
+
     }
 }

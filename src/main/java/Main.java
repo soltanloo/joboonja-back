@@ -7,6 +7,7 @@ public class Main {
     private static boolean isFinished = false;
 
     public static void main(String[] args) {
+        Utilities myUtility = new Utilities();
         while (!isFinished) {
             Pair<String, String> commandParts = getCommandParts();
             String commandName = commandParts.getKey();
@@ -15,18 +16,18 @@ public class Main {
 
             switch(commandName) {
                 case "register":
-                    System.out.println(commandData);
-                    break;
+                    //System.out.println(commandData);
+                    myUtility.register(commandData);
                 case "addProject":
-                    System.out.println(commandData);
-                    break;
+                    //System.out.println(commandData);
+                    myUtility.addProject(commandData);
                 case "bid":
-                    System.out.println(commandData);
-                    break;
+                    //System.out.println(commandData);
+                    myUtility.bid(commandData);
                 case "auction":
-                    System.out.println(commandData);
+                    //System.out.println(commandData);
+                    myUtility.auction(commandData);
                     isFinished = true;
-                    break;
             }
         }
     }
