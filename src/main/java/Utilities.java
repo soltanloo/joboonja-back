@@ -4,21 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Utilities{
-    private ObjectMapper objectMapper;
-    private ArrayList<Project> projects;
-    private ArrayList<User> users;
-    public Utilities(){
-        this.objectMapper = new ObjectMapper();
-        this.projects = new ArrayList<Project>();
-        this.users = new ArrayList<User>();
-    }
+    private ObjectMapper objectMapper = new ObjectMapper();
+    private ArrayList<Project> projects = new ArrayList<Project>();
+    private ArrayList<User> users = new ArrayList<User>();
 
     public void register(String commandValue) throws IOException {
         User newUser = this.objectMapper.readValue(commandValue, User.class);
         users.add(newUser);
     }
 
-    public void addProject(String commandValue){
+    public void addProject(String commandValue) throws IOException {
         Project newPro = this.objectMapper.readValue(commandValue, Project.class);
         projects.add(newPro);
     }

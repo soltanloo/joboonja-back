@@ -2,9 +2,9 @@
 public class Bid{
     String biddingUser;
     String projectTitle;
-    String bidAmount;
+    int bidAmount;
 
-    public Bid(String biddingUser, String projectTitle, String bidAmount) {
+    public Bid(String biddingUser, String projectTitle, int bidAmount) {
         this.biddingUser = biddingUser;
         this.projectTitle = projectTitle;
         this.bidAmount = bidAmount;
@@ -26,11 +26,11 @@ public class Bid{
         this.projectTitle = projectTitle;
     }
 
-    public String getBidAmount() {
+    public int getBidAmount() {
         return bidAmount;
     }
 
-    public void setBidAmount(String bidAmount) {
+    public void setBidAmount(int bidAmount) {
         this.bidAmount = bidAmount;
     }
 }

@@ -1,15 +1,16 @@
-
-import Skill.java;
+import java.util.ArrayList;
 
 public class Project{
     String title;
     int budget;
-    ArrayList <Skill> prjSkill = new ArrayList <Skill>();
+    ArrayList<Skill> skills = new ArrayList <Skill>();
+    ArrayList<Bid> bids = new ArrayList<Bid>();
 
-    public Project(String title, int budget, ArrayList<Skill> prjSkill) {
+    public Project(String title, int budget, ArrayList<Skill> skills, ArrayList<Bid> bids) {
         this.title = title;
         this.budget = budget;
-        this.prjSkill = prjSkill;
+        this.skills = skills;
+        this.bids = bids;
     }
 
     public int getBudget() {
@@ -26,5 +27,9 @@ public class Project{
 
     public void setBudget(int budget) {
         this.budget = budget;
+    }
+
+    public void addBid(Bid bid){
+        bids.add(bid);
     }
 }
