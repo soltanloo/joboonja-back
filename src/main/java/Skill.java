@@ -1,18 +1,18 @@
 public class Skill{
-    String sname;
+    String name;
     int points;
 
-    public Skill(String sname, int points) {
-        this.sname = sname;
+    public Skill(String name, int points) {
+        this.name = name;
         this.points = points;
     }
 
-    public String getSname() {
-        return sname;
+    public String getName() {
+        return name;
     }
 
-    public void setSname(String sname) {
-        this.sname = sname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPoints() {
