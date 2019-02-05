@@ -1,6 +1,3 @@
-import javafx.util.Pair;
-
-import java.util.Scanner;
 
 public class Skill{
     String sname;

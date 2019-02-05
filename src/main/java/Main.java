@@ -35,4 +35,6 @@ public class Main {
         int spaceIndex = command.indexOf(" ");
         return new Pair<>(command.substring(0, spaceIndex), command.substring(spaceIndex));
     }
+
+
 }

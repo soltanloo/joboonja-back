@@ -1,5 +1,4 @@
-import javafx.util.Pair;
-import java.util.Scanner;
+
 import Skill.java;
 
 public class Project{
