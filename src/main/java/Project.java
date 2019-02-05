@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Project{
-    String title;
-    int budget;
-    ArrayList<Skill> skills = new ArrayList <Skill>();
-    ArrayList<Bid> bids = new ArrayList<Bid>();
+    private String title = "";
+    private int budget = 0;
+    private ArrayList<Skill> skills = new ArrayList <Skill>();
+    private ArrayList<Bid> bids = new ArrayList<Bid>();
 
     public Project(String title, int budget, ArrayList<Skill> skills, ArrayList<Bid> bids) {
         this.title = title;
@@ -31,5 +31,9 @@ public class Project{
 
     public void addBid(Bid bid){
         bids.add(bid);
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return skills;
     }
 }
