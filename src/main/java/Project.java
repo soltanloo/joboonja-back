@@ -21,6 +21,10 @@ public class Project{
         return title;
     }
 
+    public ArrayList<Bid> getBids() {
+        return bids;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

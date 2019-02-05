@@ -1,12 +1,13 @@
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static boolean isFinished = false;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Utilities myUtility = new Utilities();
         while (!isFinished) {
             Pair<String, String> commandParts = getCommandParts();
@@ -26,7 +27,7 @@ public class Main {
                     myUtility.bid(commandData);
                 case "auction":
                     //System.out.println(commandData);
-                    myUtility.auction(commandData);
+                    System.out.println(myUtility.auction(commandData));
                     isFinished = true;
             }
         }

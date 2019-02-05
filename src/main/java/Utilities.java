@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +52,40 @@ public class Utilities{
         }
     }
 
-    public void auction(String commandValue){
+    public String auction(String commandValue){
+        String winningBidder;
+        int maxSum = 0;
+        for (Project p :
+                projects) {
+            if (p.getTitle() == project.getName()){
+                for (Bid b :
+                        p.getBids()) {
+                    int sum = 0;
+                    String biddingUser;
+                    for (User u :
+                            users) {
 
+                        if (u.getUsername() == b.getBiddingUser()) {
+                            biddingUser = b.getBiddingUser();
+                            for (Skill s :
+                                    u.getSkills()) {
+                                for (Skill ps:
+                                        p.getSkills()) {
+                                    if (ps.getName() == s.getName()){
+                                        sum += 10000 * (s.getPoints() - ps.getPoints()) * (s.getPoints() - ps.getPoints());
+                                    }
+                                }
+                            }
+                        }
+                        sum += (p.getBudget() - b.getBidAmount());
+                    }
+                    if (sum > maxSum){
+                        maxSum = sum;
+                        winningBidder = biddingUser;
+                    }
+                }
+            }
+        }
+        return winningBidder;
     }
 }
