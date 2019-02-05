@@ -1,8 +1,11 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utilities{
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -53,11 +56,13 @@ public class Utilities{
     }
 
     public String auction(String commandValue){
+        Map<String, String> project = new HashMap<String, String>();
+        project = objectMapper.readValue(commandValue, new TypeReference<Map<String, String>>);
         String winningBidder;
         int maxSum = 0;
         for (Project p :
                 projects) {
-            if (p.getTitle() == project.getName()){
+            if (p.getTitle() == project.get("projectTitle")){
                 for (Bid b :
                         p.getBids()) {
                     int sum = 0;
