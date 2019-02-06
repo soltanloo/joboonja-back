@@ -41,13 +41,14 @@ public class Utilities{
                     project.getSkills()) {
                 for (Skill us :
                         user.getSkills()) {
-                    if (us.getName().equals(s.getName())){
+                    if (us.getName().equals(s.getName()) && us.getPoints() >= s.getPoints()){
                         containedSkills++;
                     }
                 }
             }
-            if (containedSkills == user.getSkills().size()){
+            if (containedSkills == project.getSkills().size()){
                 project.addBid(b);
+                System.out.println("Bid added.");
             }
         }
     }

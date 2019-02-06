@@ -25,7 +25,7 @@ public class Main {
                     myUtility.bid(commandData);
                     break;
                 case "auction":
-                    System.out.println(myUtility.auction(commandData));
+                    System.out.println("-> winner: " + myUtility.auction(commandData));
                     isFinished = true;
                     break;
             }
