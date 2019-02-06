@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class User{
-    String username;
-    ArrayList<Skill> skills = new ArrayList <Skill>();
+    private String username;
+    private ArrayList<Skill> skills = new ArrayList <Skill>();
 
     public User() {}
 

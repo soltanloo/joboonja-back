@@ -19,16 +19,20 @@ public class Main {
                 case "register":
                     //System.out.println(commandData);
                     myUtility.register(commandData);
+                    break;
                 case "addProject":
                     //System.out.println(commandData);
                     myUtility.addProject(commandData);
+                    break;
                 case "bid":
                     //System.out.println(commandData);
                     myUtility.bid(commandData);
+                    break;
                 case "auction":
                     //System.out.println(commandData);
                     System.out.println(myUtility.auction(commandData));
                     isFinished = true;
+                    break;
             }
         }
     }
@@ -36,7 +40,7 @@ public class Main {
     private static Pair<String, String> getCommandParts() {
         String command = scanner.nextLine();
         int spaceIndex = command.indexOf(" ");
-        return new Pair<String, String>(command.substring(0, spaceIndex), command.substring(spaceIndex));
+        return new Pair<>(command.substring(0, spaceIndex), command.substring(spaceIndex + 1));
     }
 
 }

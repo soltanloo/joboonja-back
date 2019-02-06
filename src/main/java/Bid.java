@@ -1,8 +1,8 @@
 
 public class Bid{
-    String biddingUser;
-    String projectTitle;
-    int bidAmount;
+    private String biddingUser;
+    private String projectTitle;
+    private int bidAmount;
 
     public Bid() {}
 

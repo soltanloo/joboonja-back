@@ -35,6 +35,14 @@ public class Project{
         this.budget = budget;
     }
 
+    public void setSkills(ArrayList<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public void setBids(ArrayList<Bid> bids) {
+        this.bids = bids;
+    }
+
     public void addBid(Bid bid){
         bids.add(bid);
     }
