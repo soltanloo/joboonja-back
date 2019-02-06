@@ -33,13 +33,13 @@ public class Utilities{
         User user = null;
         for (Project p:
              projects) {
-            if (p.getTitle() == b.getProjectTitle()){
+            if (p.getTitle().equals(b.getProjectTitle())){
                 project = p;
             }
         }
         for (User u:
                 users) {
-            if (u.getUsername() == b.getBiddingUser()){
+            if (u.getUsername().equals(b.getBiddingUser())){
                 user = u;
             }
         }
@@ -49,7 +49,7 @@ public class Utilities{
                     project.getSkills()) {
                 for (Skill us :
                         user.getSkills()) {
-                    if (us.getName() == s.getName()){
+                    if (us.getName().equals(s.getName())){
                         containedSkills++;
                     }
                 }
@@ -67,7 +67,7 @@ public class Utilities{
         int maxSum = 0;
         for (Project p :
                 projects) {
-            if (p.getTitle() == project.get("projectTitle")){
+            if (p.getTitle().equals(project.get("projectTitle"))){
                 for (Bid b :
                         p.getBids()) {
                     int sum = 0;
@@ -75,13 +75,13 @@ public class Utilities{
                     for (User u :
                             users) {
 
-                        if (u.getUsername() == b.getBiddingUser()) {
+                        if (u.getUsername().equals(b.getBiddingUser())) {
                             biddingUser = b.getBiddingUser();
                             for (Skill s :
                                     u.getSkills()) {
                                 for (Skill ps:
                                         p.getSkills()) {
-                                    if (ps.getName() == s.getName()){
+                                    if (ps.getName().equals(s.getName())){
                                         sum += 10000 * (s.getPoints() - ps.getPoints()) * (s.getPoints() - ps.getPoints());
                                     }
                                 }

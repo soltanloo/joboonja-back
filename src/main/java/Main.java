@@ -13,23 +13,18 @@ public class Main {
             Pair<String, String> commandParts = getCommandParts();
             String commandName = commandParts.getKey();
             String commandData = commandParts.getValue();
-            System.out.println(commandData);
 
             switch(commandName) {
                 case "register":
-                    //System.out.println(commandData);
                     myUtility.register(commandData);
                     break;
                 case "addProject":
-                    //System.out.println(commandData);
                     myUtility.addProject(commandData);
                     break;
                 case "bid":
-                    //System.out.println(commandData);
                     myUtility.bid(commandData);
                     break;
                 case "auction":
-                    //System.out.println(commandData);
                     System.out.println(myUtility.auction(commandData));
                     isFinished = true;
                     break;
