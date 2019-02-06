@@ -19,7 +19,6 @@ public class Utilities{
     public void register(String commandValue) throws IOException {
         User newUser = this.objectMapper.readValue(commandValue, User.class);
         users.add(newUser);
-        System.out.println(Arrays.toString(users.toArray()));
     }
 
     public void addProject(String commandValue) throws IOException {
