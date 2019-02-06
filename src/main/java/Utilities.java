@@ -55,10 +55,10 @@ public class Utilities{
         }
     }
 
-    public String auction(String commandValue){
-        Map<String, String> project = new HashMap<String, String>();
-        project = objectMapper.readValue(commandValue, new TypeReference<Map<String, String>>);
-        String winningBidder;
+    public String auction(String commandValue) throws IOException {
+        Map<String, String> project;
+        project = objectMapper.readValue(commandValue, new TypeReference<Map<String, String>>(){});
+        String winningBidder = "";
         int maxSum = 0;
         for (Project p :
                 projects) {
@@ -66,7 +66,7 @@ public class Utilities{
                 for (Bid b :
                         p.getBids()) {
                     int sum = 0;
-                    String biddingUser;
+                    String biddingUser = "";
                     for (User u :
                             users) {
 

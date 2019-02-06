@@ -4,6 +4,8 @@ public class User{
     String username;
     ArrayList<Skill> skills = new ArrayList <Skill>();
 
+    public User() {}
+
     public User(String username, ArrayList<Skill> skills) {
         this.username = username;
         this.skills = skills;

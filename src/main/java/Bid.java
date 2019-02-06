@@ -4,6 +4,8 @@ public class Bid{
     String projectTitle;
     int bidAmount;
 
+    public Bid() {}
+
     public Bid(String biddingUser, String projectTitle, int bidAmount) {
         this.biddingUser = biddingUser;
         this.projectTitle = projectTitle;

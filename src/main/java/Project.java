@@ -6,6 +6,8 @@ public class Project{
     private ArrayList<Skill> skills = new ArrayList <Skill>();
     private ArrayList<Bid> bids = new ArrayList<Bid>();
 
+    public Project() {}
+
     public Project(String title, int budget, ArrayList<Skill> skills, ArrayList<Bid> bids) {
         this.title = title;
         this.budget = budget;
