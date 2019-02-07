@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class User{
-    private String username;
+    private String username = "";
     private ArrayList<Skill> skills = new ArrayList <Skill>();
 
     public User() {}
@@ -11,7 +11,7 @@ public class User{
         this.skills = skills;
     }
 
-    public String getUsername() {
+    String getUsername() {
         return username;
     }
 
@@ -19,7 +19,7 @@ public class User{
         this.username = username;
     }
 
-    public ArrayList<Skill> getSkills() {
+    ArrayList<Skill> getSkills() {
         return skills;
     }
 

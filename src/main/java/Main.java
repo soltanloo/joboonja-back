@@ -1,5 +1,4 @@
 import javafx.util.Pair;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -8,7 +7,7 @@ public class Main {
     private static boolean isFinished = false;
 
     public static void main(String[] args) throws IOException {
-        Utilities myUtility = new Utilities();
+        Auctioneer auctioneer = new Auctioneer();
         while (!isFinished) {
             Pair<String, String> commandParts = getCommandParts();
             String commandName = commandParts.getKey();
@@ -16,16 +15,16 @@ public class Main {
 
             switch(commandName) {
                 case "register":
-                    myUtility.register(commandData);
+                    auctioneer.register(commandData);
                     break;
                 case "addProject":
-                    myUtility.addProject(commandData);
+                    auctioneer.addProject(commandData);
                     break;
                 case "bid":
-                    myUtility.bid(commandData);
+                    auctioneer.bid(commandData);
                     break;
                 case "auction":
-                    System.out.println("-> winner: " + myUtility.auction(commandData));
+                    System.out.println("-> winner: " + auctioneer.auction(commandData));
                     isFinished = true;
                     break;
             }

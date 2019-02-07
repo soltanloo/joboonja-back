@@ -4,22 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Utilities{
+public class Auctioneer {
     private ObjectMapper objectMapper = new ObjectMapper();
     private ArrayList<Project> projects = new ArrayList<Project>();
     private ArrayList<User> users = new ArrayList<User>();
 
-    public void register(String commandValue) throws IOException {
+    void register(String commandValue) throws IOException {
         User newUser = this.objectMapper.readValue(commandValue, User.class);
         users.add(newUser);
     }
 
-    public void addProject(String commandValue) throws IOException {
+    void addProject(String commandValue) throws IOException {
         Project newPro = this.objectMapper.readValue(commandValue, Project.class);
         projects.add(newPro);
     }
 
-    public void bid(String commandValue) throws IOException {
+    void bid(String commandValue) throws IOException {
         Bid b = this.objectMapper.readValue(commandValue, Bid.class);
         Project project = null;
         User user = null;
@@ -39,11 +39,8 @@ public class Utilities{
             int containedSkills = 0;
             for (Skill s :
                     project.getSkills()) {
-                for (Skill us :
-                        user.getSkills()) {
-                    if (us.getName().equals(s.getName()) && us.getPoints() >= s.getPoints()){
-                        containedSkills++;
-                    }
+                if (user.getSkills().stream().anyMatch(us -> (us.getName().equals(s.getName()) && us.getPoints() >= s.getPoints()))) {
+                    containedSkills++;
                 }
             }
             if (containedSkills == project.getSkills().size()){
@@ -53,7 +50,7 @@ public class Utilities{
         }
     }
 
-    public String auction(String commandValue) throws IOException {
+    String auction(String commandValue) throws IOException {
         Map<String, String> project;
         project = objectMapper.readValue(commandValue, new TypeReference<Map<String, String>>(){});
         String winningBidder = "";

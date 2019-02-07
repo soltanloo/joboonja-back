@@ -15,15 +15,15 @@ public class Project{
         this.bids = bids;
     }
 
-    public int getBudget() {
+    int getBudget() {
         return budget;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public ArrayList<Bid> getBids() {
+    ArrayList<Bid> getBids() {
         return bids;
     }
 
@@ -43,11 +43,11 @@ public class Project{
         this.bids = bids;
     }
 
-    public void addBid(Bid bid){
+    void addBid(Bid bid){
         bids.add(bid);
     }
 
-    public ArrayList<Skill> getSkills() {
+    ArrayList<Skill> getSkills() {
         return skills;
     }
 }
