@@ -11,12 +11,18 @@ public class Auctioneer {
 
     void register(String commandValue) throws IOException {
         User newUser = this.objectMapper.readValue(commandValue, User.class);
-        users.add(newUser);
+        if (!users.stream().anyMatch(u -> (u.getUsername().equals(newUser.getUsername()))))
+            users.add(newUser);
+        else
+            System.out.println("User \'" + newUser.getUsername() + "\' already exists.");
     }
 
     void addProject(String commandValue) throws IOException {
         Project newPro = this.objectMapper.readValue(commandValue, Project.class);
-        projects.add(newPro);
+        if (!projects.stream().anyMatch(p -> (p.getTitle().equals(newPro.getTitle()))))
+            projects.add(newPro);
+        else
+            System.out.println("Project \'" + newPro.getTitle() + "\' already exists.");
     }
 
     void bid(String commandValue) throws IOException {
@@ -35,7 +41,10 @@ public class Auctioneer {
                 user = u;
             }
         }
-        if (project.getBudget() >= b.getBidAmount()){
+        User finalUser = user;
+        if (project.getBids().stream().anyMatch(bid -> bid.getBiddingUser().equals(finalUser.getUsername())))
+            System.out.println("User \'" + user.getUsername() + "\' has already bidden on this project.");
+        else if (project.getBudget() >= b.getBidAmount()){
             int containedSkills = 0;
             for (Skill s :
                     project.getSkills()) {
