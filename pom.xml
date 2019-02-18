@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Spring98-IE-CA1</groupId>
-    <artifactId>Spring98-IE-CA1</artifactId>
+    <groupId>joboonja</groupId>
+    <artifactId>joboonja</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -25,6 +25,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.net.httpserver/http -->
+        <dependency>
+            <groupId>com.sun.net.httpserver</groupId>
+            <artifactId>http</artifactId>
+            <version>20070405</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
