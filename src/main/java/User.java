@@ -1,22 +1,25 @@
 import java.util.ArrayList;
 
 public class User{
-    private String username = "";
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String jobTitle;
+    private String profilePictureURL;
     private ArrayList<Skill> skills = new ArrayList <Skill>();
+    private String bio;
 
     public User() {}
 
-    public User(String username, ArrayList<Skill> skills) {
-        this.username = username;
+    public User(String id, String firstName, String lastName, String jobTitle, String profilePictureURL,
+                ArrayList<Skill> skills, String bio) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.jobTitle = jobTitle;
+        this.profilePictureURL = profilePictureURL;
         this.skills = skills;
-    }
-
-    String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        this.bio = bio;
     }
 
     ArrayList<Skill> getSkills() {
@@ -25,5 +28,53 @@ public class User{
 
     public void setSkills(ArrayList<Skill> skills) {
         this.skills = skills;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getProfilePictureURL() {
+        return profilePictureURL;
+    }
+
+    public void setProfilePictureURL(String profilePictureURL) {
+        this.profilePictureURL = profilePictureURL;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
