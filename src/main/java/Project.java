@@ -1,42 +1,73 @@
 import java.util.ArrayList;
 
 public class Project{
-    private String title = "";
-    private int budget = 0;
+    private String id;
+    private String title;
+    private String description;
+    private String imageURL;
     private ArrayList<Skill> skills = new ArrayList <Skill>();
     private ArrayList<Bid> bids = new ArrayList<Bid>();
+    private int budget = 0;
+    private long deadline;
+    private User winner;
 
     public Project() {}
 
-    public Project(String title, int budget, ArrayList<Skill> skills, ArrayList<Bid> bids) {
+    public Project(String id, String title, String description, String imageURL, ArrayList<Skill> skills,
+                   ArrayList<Bid> bids, int budget, long deadline, User winner) {
+        this.id = id;
         this.title = title;
-        this.budget = budget;
+        this.description = description;
+        this.imageURL = imageURL;
         this.skills = skills;
         this.bids = bids;
+        this.budget = budget;
+        this.deadline = deadline;
+        this.winner = winner;
     }
 
-    int getBudget() {
-        return budget;
+    public String getId() {
+        return id;
     }
 
-    String getTitle() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
         return title;
-    }
-
-    ArrayList<Bid> getBids() {
-        return bids;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setBudget(int budget) {
-        this.budget = budget;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return skills;
     }
 
     public void setSkills(ArrayList<Skill> skills) {
         this.skills = skills;
+    }
+
+    public ArrayList<Bid> getBids() {
+        return bids;
     }
 
     public void setBids(ArrayList<Bid> bids) {
@@ -44,10 +75,30 @@ public class Project{
     }
 
     void addBid(Bid bid){
-        bids.add(bid);
+        this.bids.add(bid);
     }
 
-    ArrayList<Skill> getSkills() {
-        return skills;
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public long getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(long deadline) {
+        this.deadline = deadline;
+    }
+
+    public User getWinner() {
+        return winner;
+    }
+
+    public void setWinner(User winner) {
+        this.winner = winner;
     }
 }
