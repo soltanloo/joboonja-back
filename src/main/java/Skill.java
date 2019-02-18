@@ -1,12 +1,12 @@
 public class Skill{
     private String name = "";
-    private int points = 0;
+    private int point = 0;
 
     public Skill() {}
 
-    public Skill(String name, int points) {
+    public Skill(String name, int point) {
         this.name = name;
-        this.points = points;
+        this.point = point;
     }
 
     String getName() {
@@ -17,11 +17,11 @@ public class Skill{
         this.name = name;
     }
 
-    int getPoints() {
-        return points;
+    int getPoint() {
+        return point;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void setPoint(int point) {
+        this.point = point;
     }
 }
