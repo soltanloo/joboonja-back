@@ -1,32 +1,17 @@
 
 public class Bid{
-    private String biddingUser;
-    private String projectTitle;
+    private User biddingUser;
+    private Project project;
     private int bidAmount;
 
     public Bid() {}
 
-    public Bid(String biddingUser, String projectTitle, int bidAmount) {
+    public Bid(User biddingUser, Project project, int bidAmount) {
         this.biddingUser = biddingUser;
-        this.projectTitle = projectTitle;
+        this.project = project;
         this.bidAmount = bidAmount;
     }
 
-    public String getBiddingUser() {
-        return biddingUser;
-    }
-
-    public void setBiddingUser(String biddingUser) {
-        this.biddingUser = biddingUser;
-    }
-
-    public String getProjectTitle() {
-        return projectTitle;
-    }
-
-    public void setProjectTitle(String projectTitle) {
-        this.projectTitle = projectTitle;
-    }
 
     public int getBidAmount() {
         return bidAmount;
@@ -34,5 +19,21 @@ public class Bid{
 
     public void setBidAmount(int bidAmount) {
         this.bidAmount = bidAmount;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public User getBiddingUser() {
+        return biddingUser;
+    }
+
+    public void setBiddingUser(User biddingUser) {
+        this.biddingUser = biddingUser;
     }
 }
