@@ -5,10 +5,19 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Manager {
+    private static Manager managerInstance = null;
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<Project> projects = new ArrayList<Project>();
     private ArrayList<String> skills = new ArrayList<String>();
     private User currentUser;
+
+    public static Manager getInstance()
+    {
+        if (managerInstance == null)
+            managerInstance = new Manager();
+
+        return managerInstance;
+    }
 
     public void addSkill(String skill) {
         if (!skills.stream().anyMatch(s -> (s.equals(skill))))
@@ -33,7 +42,8 @@ public class Manager {
                     return u;
                 }
             }
-            throw new UserNotFoundException(id);
+            //TODO: throw new UserNotFoundException(id);
+            return null;
         }
 
     }
@@ -79,7 +89,8 @@ public class Manager {
                     return p;
                 }
             }
-            throw new ProjectNotFoundException(id);
+            //TODO: throw new ProjectNotFoundException(id);
+            return null;
         }
 
         Boolean hasSkills(User user , Project project){

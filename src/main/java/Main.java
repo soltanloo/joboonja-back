@@ -20,35 +20,12 @@ public class Main {
         try (Scanner scanner = new Scanner(response)) {
             String responseBody = scanner.useDelimiter("\\A").next();
 
-
         }
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/projects", new Handler.ProjectHandler());
         server.createContext("/user", new Handler.UserHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
-//        Auctioneer auctioneer = new Auctioneer();
-//        while (!isFinished) {
-//            Pair<String, String> commandParts = getCommandParts();
-//            String commandName = commandParts.getKey();
-//            String commandData = commandParts.getValue();
-//
-//            switch(commandName) {
-//                case "register":
-//                    auctioneer.register(commandData);
-//                    break;
-//                case "addProject":
-//                    auctioneer.addProject(commandData);
-//                    break;
-//                case "bid":
-//                    auctioneer.bid(commandData);
-//                    break;
-//                case "auction":
-//                    System.out.println("-> winner: " + auctioneer.auction(commandData));
-//                    isFinished = true;
-//                    break;
-//            }
-//        }
     }
 
 }
