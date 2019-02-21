@@ -14,13 +14,15 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static boolean isFinished = false;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
         InputStream response = new URL("http://142.93.134.194:8000/joboonja/project").openStream();
         try (Scanner scanner = new Scanner(response)) {
             String responseBody = scanner.useDelimiter("\\A").next();
 
         }
+        Server server = new Server();
+        server.startServer();
     }
 
 }
