@@ -7,7 +7,15 @@ import java.util.Map;
 public class Manager {
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<Project> projects = new ArrayList<Project>();
+    private ArrayList<String> skills = new ArrayList<String>();
     private User currentUser;
+
+    public void addSkill(String skill) {
+        if (!skills.stream().anyMatch(s -> (s.equals(skill))))
+            skills.add(skill);
+        else
+            System.out.println("Skill \'" + skill + "\' already exists.");
+    }
 
     public class UserManager {
 
