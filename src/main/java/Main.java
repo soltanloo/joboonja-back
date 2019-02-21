@@ -24,6 +24,7 @@ public class Main {
         }
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/projects", new Handler.ProjectHandler());
+        server.createContext("/user", new Handler.UserHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
 //        Auctioneer auctioneer = new Auctioneer();
@@ -48,12 +49,6 @@ public class Main {
 //                    break;
 //            }
 //        }
-    }
-
-    private static Pair<String, String> getCommandParts() {
-        String command = scanner.nextLine();
-        int spaceIndex = command.indexOf(" ");
-        return new Pair<>(command.substring(0, spaceIndex), command.substring(spaceIndex + 1));
     }
 
 }

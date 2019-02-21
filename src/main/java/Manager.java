@@ -18,6 +18,16 @@ public class Manager {
                 System.out.println("User \'" + newUser.getId() + "\' already exists.");
         }
 
+        User getUserByID(String id){
+            for (User u :
+                    users) {
+                if (u.getId() == id) {
+                    return u;
+                }
+            }
+            throw new UserNotFoundException(id);
+        }
+
     }
 
     public class ProjectManager {
