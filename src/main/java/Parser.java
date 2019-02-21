@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Parser {
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
     public ArrayList<Project> parseProjects(String prjList) throws IOException {
         return objectMapper.readValue(prjList, new TypeReference<ArrayList<Project>>(){});
     }

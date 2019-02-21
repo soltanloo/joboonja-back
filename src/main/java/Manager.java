@@ -6,10 +6,18 @@ import java.util.Map;
 
 public class Manager {
     private static Manager managerInstance = null;
-    private ArrayList<User> users = new ArrayList<User>();
-    private ArrayList<Project> projects = new ArrayList<Project>();
-    private ArrayList<String> skills = new ArrayList<String>();
-    private User currentUser;
+    public static UserManager userManager = null;
+    public static ProjectManager projectManager = null;
+    private static ArrayList<User> users = new ArrayList<User>();
+    private static ArrayList<Project> projects = new ArrayList<Project>();
+    private static ArrayList<Skill> skills = new ArrayList<Skill>();
+    private static User currentUser;
+
+    private Manager() {
+        userManager = new UserManager();
+        projectManager = new ProjectManager();
+    }
+
 
     public static Manager getInstance()
     {
@@ -19,11 +27,11 @@ public class Manager {
         return managerInstance;
     }
 
-    public void addSkill(String skill) {
-        if (!skills.stream().anyMatch(s -> (s.equals(skill))))
+    public static void addSkill(Skill skill) {
+        if (!skills.stream().anyMatch(s -> (s.getName().equals(skill.getName()))))
             skills.add(skill);
         else
-            System.out.println("Skill \'" + skill + "\' already exists.");
+            System.out.println("Skill \'" + skill.getName() + "\' already exists.");
     }
 
     public class UserManager {

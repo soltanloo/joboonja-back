@@ -69,7 +69,7 @@ public class Viewer {
             "        <li>id: " + p.getId() + "</li>\n" +
             "        <li>title: " + p.getTitle() + "</li>\n" +
             "        <li>description: " + p.getDescription() + "</li>\n" +
-            "        <li>imageUrl: <img src=\"" + p.getImageURL() + "\" style=\"width: 50px; height: 50px;\"></li>\n" +
+            "        <li>imageUrl: <img src=\"" + p.getImageUrl() + "\" style=\"width: 50px; height: 50px;\"></li>\n" +
             "        <li>budget: " + p.getBudget() + "</li>\n" +
             "    </ul>\n" +
             "</body>\n" +

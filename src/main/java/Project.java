@@ -4,7 +4,7 @@ public class Project{
     private String id;
     private String title;
     private String description;
-    private String imageURL;
+    private String imageUrl;
     private ArrayList<Skill> skills = new ArrayList <Skill>();
     private ArrayList<Bid> bids = new ArrayList<Bid>();
     private int budget = 0;
@@ -13,12 +13,12 @@ public class Project{
 
     public Project() {}
 
-    public Project(String id, String title, String description, String imageURL, ArrayList<Skill> skills,
+    public Project(String id, String title, String description, String imageUrl, ArrayList<Skill> skills,
                    ArrayList<Bid> bids, int budget, long deadline, User winner) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.imageURL = imageURL;
+        this.imageUrl = imageUrl;
         this.skills = skills;
         this.bids = bids;
         this.budget = budget;
@@ -50,12 +50,12 @@ public class Project{
         this.description = description;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public ArrayList<Skill> getSkills() {

@@ -16,41 +16,38 @@ import com.sun.net.httpserver.HttpServer;
 public class Server {
     public void startServer() throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/projects", new ProjectsHandler());
-        server.createContext("/user", new UserHandler());
+        server.createContext("/", new Handler());
         server.setExecutor(null);
         server.start();
     }
 
-    class JoboonjaHandler implements HttpHandler {
+    class Handler implements HttpHandler {
         @Override
         public void handle(HttpExchange httpExchange) throws IOException {
             StringTokenizer tokenizer = new StringTokenizer(httpExchange.getRequestURI().getPath(), "/");
             String context = tokenizer.nextToken();
-            String page = tokenizer.nextToken();
-            System.out.println("context is: " + page);
-//            Class<IPage> pageClass;
-//            try {
-//                pageClass = (Class<IPage>) Class.forName("ir.ac.ut.ece.modernserver." + page);
-//                IPage newInstance = pageClass.getDeclaredConstructor().newInstance();
-//                newInstance.HandleRequest(httpExchange);
-//            } catch (ClassNotFoundException |
-//                    InstantiationException |
-//                    IllegalAccessException |
-//                    IllegalArgumentException |
-//                    InvocationTargetException |
-//                    NoSuchMethodException |
-//                    SecurityException e) {
-//                e.printStackTrace();
-//                String response =
-//                        "<html>"
-//                                + "<body>Page \"" + page + "\" not found.</body>"
-//                                + "</html>";
-//                httpExchange.sendResponseHeaders(404, response.length());
-//                OutputStream os = httpExchange.getResponseBody();
-//                os.write(response.getBytes());
-//                os.close();
-//            }
+            Class<Section> pageClass;
+            try {
+                pageClass = (Class<Section>) Class.forName(context.substring(0, 1).toUpperCase() + context.substring(1) + "Page");
+                Section newInstance = pageClass.getDeclaredConstructor().newInstance();
+                newInstance.HandleRequest(httpExchange);
+            } catch (ClassNotFoundException |
+                    InstantiationException |
+                    IllegalAccessException |
+                    IllegalArgumentException |
+                    InvocationTargetException |
+                    NoSuchMethodException |
+                    SecurityException e) {
+                e.printStackTrace();
+                String response =
+                        "<html>"
+                                + "<body>Page \"" + context + "\" not found.</body>"
+                                + "</html>";
+                httpExchange.sendResponseHeaders(404, response.length());
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
         }
     }
 }
