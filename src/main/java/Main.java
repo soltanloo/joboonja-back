@@ -15,13 +15,15 @@ public class Main {
     private static boolean isFinished = false;
 
     public static void main(String[] args) throws IOException {
+
         InputStream response = new URL("http://142.93.134.194:8000/joboonja/project").openStream();
         try (Scanner scanner = new Scanner(response)) {
             String responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
+
+
         }
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/projects", new MyHandler());
+        server.createContext("/projects", new Handler.ProjectHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
 //        Auctioneer auctioneer = new Auctioneer();
@@ -46,17 +48,6 @@ public class Main {
 //                    break;
 //            }
 //        }
-    }
-
-    static class MyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange t) throws IOException {
-            String response = "This is the response";
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        }
     }
 
     private static Pair<String, String> getCommandParts() {
