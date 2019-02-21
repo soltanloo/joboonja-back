@@ -21,11 +21,6 @@ public class Main {
             String responseBody = scanner.useDelimiter("\\A").next();
 
         }
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/projects", new Handler.ProjectHandler());
-        server.createContext("/user", new Handler.UserHandler());
-        server.setExecutor(null); // creates a default executor
-        server.start();
     }
 
 }
