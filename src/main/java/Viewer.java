@@ -18,6 +18,7 @@ public class Viewer {
             "    </ul>\n" +
             "</body>\n" +
             "</html>";
+        //System.out.println(response);
         return response;
     }
     public static String viewProjects(ArrayList<Project> projects){

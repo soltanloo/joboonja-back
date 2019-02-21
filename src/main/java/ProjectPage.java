@@ -10,19 +10,13 @@ public class ProjectPage implements Section {
         StringTokenizer tokenizer = new StringTokenizer(httpExchange.getRequestURI().getPath(), "/");
         String context = tokenizer.nextToken();
         String id = "";
+        String response = "";
         if (tokenizer.hasMoreTokens()) {
             id = tokenizer.nextToken();
-            String response =
-                    "<html>"
-                            + "<body><h1>ID is: " + id + "<h1></body>"
-                            + "</html>";
+            response = Viewer.viewProject(Manager.projectManager.getProjectByID(id));
         } else {
-            String response =
-                    "<html>"
-                            + "<body><h1>All projects.<h1></body>"
-                            + "</html>";
+            response = Viewer.viewProjects(Manager.projectManager.getEligibleProjects());
         }
-
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());

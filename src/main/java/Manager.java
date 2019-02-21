@@ -16,6 +16,13 @@ public class Manager {
     private Manager() {
         userManager = new UserManager();
         projectManager = new ProjectManager();
+        currentUser = new User();
+        currentUser.setId("1");
+        currentUser.setFirstName("Ali");
+        currentUser.setLastName("Sharifzadeh");
+        currentUser.setJobTitle("برنامه‌نویس وب");
+        currentUser.setBio("روی سنگ قبرم بنویسید: خدا بیامرز می‌خواست خیلی کارا بکنه ولی پول نداشت.");
+        users.add(currentUser);
     }
 
 
@@ -46,7 +53,7 @@ public class Manager {
         User getUserByID(String id){
             for (User u :
                     users) {
-                if (u.getId() == id) {
+                if (u.getId().equals(id)) {
                     return u;
                 }
             }
@@ -93,7 +100,7 @@ public class Manager {
         Project getProjectByID(String id) {
             for (Project p :
                     projects) {
-                if (p.getId() == id) {
+                if (p.getId().equals(id)) {
                     return p;
                 }
             }

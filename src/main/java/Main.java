@@ -19,7 +19,7 @@ public class Main {
         Manager.getInstance();
         Parser parser = new Parser();
         fetchURL(parser, "project");
-        fetchURL(parser, "skill");
+//        fetchURL(parser, "skill");
         Server server = new Server();
         server.startServer();
     }
