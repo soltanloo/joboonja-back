@@ -30,6 +30,10 @@ public class User{
         this.skills = skills;
     }
 
+    public void addSkill(Skill skill) {
+        this.skills.add(skill);
+    }
+
     public String getId() {
         return id;
     }
