@@ -11,7 +11,7 @@ public class UserPage implements Section {
         String context = tokenizer.nextToken();
         String id = tokenizer.nextToken();
         String response = Viewer.viewUser(Manager.userManager.getUserByID(id));
-        httpExchange.sendResponseHeaders(200, response.length());
+        httpExchange.sendResponseHeaders(200, response.getBytes().length);
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();

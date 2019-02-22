@@ -1,17 +1,12 @@
-import javafx.util.Pair;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.net.InetSocketAddress;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.net.InetSocketAddress;
+import java.util.StringTokenizer;
 
 public class Server {
     public void startServer() throws Exception {
@@ -43,7 +38,7 @@ public class Server {
                         "<html>"
                                 + "<body>Page \"" + context + "\" not found.</body>"
                                 + "</html>";
-                httpExchange.sendResponseHeaders(404, response.length());
+                httpExchange.sendResponseHeaders(404, response.getBytes().length);
                 OutputStream os = httpExchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();

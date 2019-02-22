@@ -17,7 +17,7 @@ public class ProjectPage implements Section {
         } else {
             response = Viewer.viewProjects(Manager.projectManager.getEligibleProjects());
         }
-        httpExchange.sendResponseHeaders(200, response.length());
+        httpExchange.sendResponseHeaders(200, response.getBytes().length);
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();

@@ -18,8 +18,8 @@ public class Manager {
         projectManager = new ProjectManager();
         currentUser = new User();
         currentUser.setId("1");
-        currentUser.setFirstName("Ali");
-        currentUser.setLastName("Sharifzadeh");
+        currentUser.setFirstName("علی");
+        currentUser.setLastName("شریف‌زاده");
         currentUser.setJobTitle("برنامه‌نویس وب");
         currentUser.setBio("روی سنگ قبرم بنویسید: خدا بیامرز می‌خواست خیلی کارا بکنه ولی پول نداشت.");
         users.add(currentUser);
