@@ -76,4 +76,43 @@ public class Viewer {
             "</html>";
         return response;
     }
+    public static String viewUneligibleProject(String projectId) {
+        String response = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>Project</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <h2>You don't have enough skills to view project with id \'" + projectId + "\'</h2>" +
+                "</body>\n" +
+                "</html>";
+        return response;
+    }
+    public static String viewProjectNotFound(String projectId) {
+        String response = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>Project</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <h2>Project with id \'" + projectId + "\' not found.</h2>" +
+                "</body>\n" +
+                "</html>";
+        return response;
+    }
+    public static String viewUserNotFound(String userId) {
+        String response = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>User</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <h2>User with id \'" + userId + "\' not found.</h2>" +
+                "</body>\n" +
+                "</html>";
+        return response;
+    }
 }

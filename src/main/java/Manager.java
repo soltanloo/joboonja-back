@@ -54,15 +54,14 @@ public class Manager {
                 System.out.println("User \'" + newUser.getId() + "\' already exists.");
         }
 
-        User getUserByID(String id){
+        User getUserByID(String id) throws UserNotFoundException {
             for (User u :
                     users) {
                 if (u.getId().equals(id)) {
                     return u;
                 }
             }
-            //TODO: throw new UserNotFoundException(id);
-            return null;
+            throw new UserNotFoundException(id);
         }
 
     }
@@ -101,15 +100,14 @@ public class Manager {
             }
         }
 
-        Project getProjectByID(String id) {
+        Project getProjectByID(String id) throws ProjectNotFoundException {
             for (Project p :
                     projects) {
                 if (p.getId().equals(id)) {
                     return p;
                 }
             }
-            //TODO: throw new ProjectNotFoundException(id);
-            return null;
+            throw new ProjectNotFoundException(id);
         }
 
         Boolean hasSkills(User user , Project project){

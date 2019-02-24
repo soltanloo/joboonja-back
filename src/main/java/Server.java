@@ -27,6 +27,7 @@ public class Server {
                 Section newInstance = pageClass.getDeclaredConstructor().newInstance();
                 newInstance.HandleRequest(httpExchange);
             } catch (ClassNotFoundException |
+                    IOException |
                     InstantiationException |
                     IllegalAccessException |
                     IllegalArgumentException |
