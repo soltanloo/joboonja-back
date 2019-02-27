@@ -5,8 +5,9 @@
   Time: 11:03
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,22 +16,22 @@
 </head>
 <body>
 <ul>
-    <li>id: 1</li>
-    <li>first name: <%= request.getParameter("firstname")%></li>
-    <li>last name: <%= request.getParameter("lastname")%></li>
-    <li>jobTitle: <%= request.getParameter("jobTitle")%></li>
-    <li>bio: <%= request.getParameter("bio")%></li>
+    <li>id: <c:out value="${user.id}" /></li>
+    <li>first name: <c:out value="${user.firstName}" /></li>
+    <li>last name: <c:out value="${user.lastName}" /></li>
+    <li>jobTitle: <c:out value="${user.jobTitle}" /></li>
+    <li>bio: <c:out value="${user.bio}" /></li>
     <li>
         skills:
         <ul>
-            <c:forEach var="skill" items="${requestScope("skills")}">
+            <c:forEach var="skill" items="${skills}">
                 <li>
                     <c:out value="${skill.name}"/>:  <c:out value="${skill.point}"/>
                     <%--<c:if></c:if>--%>
                     <form action="/user/endorseskill" method="POST">
                         <input type="hidden" name="skillName" value="${skill.name}">
-                        <input type="hidden" name="endorser" value="${requestScope("myid")}">
-                        <button name="${skill.name}" , value="${}">Endorse</button>
+                        <input type="hidden" name="endorser" value="${myId}">
+                        <button>Endorse</button>
                     </form>
                 </li>
             </c:forEach>

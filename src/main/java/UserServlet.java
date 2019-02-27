@@ -12,7 +12,14 @@ public class UserServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //System.out.println(request.getPathInfo().substring(1));
+        try {
+            Manager.getInstance();
+            request.setAttribute("user", Manager.userManager.getUserByID("1"));
+            request.setAttribute("skills", Manager.userManager.getUserByID("1").getSkills());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("myId", 1);
         request.getRequestDispatcher("/user.jsp").forward(request, response);
     }
 }
