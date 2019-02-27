@@ -12,8 +12,8 @@ public class UserServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getPathInfo().substring(1));
-
+        //System.out.println(request.getPathInfo().substring(1));
+        request.getRequestDispatcher("/user.jsp").forward(request, response);
     }
 }
 
