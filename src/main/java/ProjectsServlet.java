@@ -12,6 +12,6 @@ public class ProjectsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("با مادر خود برخورد خوب داشته باشید. ");
+        request.getRequestDispatcher("/projects.jsp").forward(request, response);
     }
 }
