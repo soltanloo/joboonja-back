@@ -11,36 +11,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Project</title>
 </head>
 <body>
 <ul>
-    <li>id: 1</li>
-    <li>first name: <%= request.getParameter("firstname")%></li>
-    <li>last name: <%= request.getParameter("lastname")%></li>
-    <li>jobTitle: <%= request.getParameter("jobTitle")%></li>
-    <li>bio: <%= request.getParameter("bio")%></li>
-    <li>
-        skills:
-        <ul>
-            <li>
-                HTML: 2
-                <form action="" method="">
-                    <button>Endorse</button>
-                </form>
-            </li>
-            <li>
-                Java: 1
-                <form action="" method="">
-                    <button>Endorse</button>
-                </form>
-            </li>
-            <li>
-                CSS: 2
-                <!-- no form if already endorsed -->
-            </li>
-        </ul>
-    </li>
+    <li>id: <c:out value="${project.id}" /> </li>
+    <li>title: <c:out value="${project.title}" /></li>
+    <li>description: <c:out value="${project.description}" /></li>
+    <li>imageUrl: <img src= '<c:out value="${project.imageUrl}" />' style="width: 50px; height: 50px;" ></li>
+    <li>budget: <c:out value="${project.budget}" /></li>
 </ul>
+
+<!-- display form if user has not bidded before -->
+<form action="/project/bid" method="POST">
+    <label for="bidAmount">Bid Amount:</label>
+    <input type="number" name="bidAmount">
+    <input type="hidden" name="bidder" value="${myId}">
+    <button>Submit</button>
+</form>
 </body>
 </html>

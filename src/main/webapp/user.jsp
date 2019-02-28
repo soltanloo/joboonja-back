@@ -35,11 +35,6 @@
                     </form>
                 </li>
             </c:forEach>
-
-            <li>
-                CSS: 2
-                <!-- no form if already endorsed -->
-            </li>
         </ul>
     </li>
 </ul>
