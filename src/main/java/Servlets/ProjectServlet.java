@@ -2,6 +2,7 @@ package Servlets;
 
 import Exceptions.ProjectNotFoundException;
 import Joboonja.Database;
+import Joboonja.ProjectManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ public class ProjectServlet extends HttpServlet {
             String id = request.getPathInfo();
             String project_id = id.substring(1);
             //System.out.println(project_id);
-            request.setAttribute("project", Database.projectManager.getProjectByID(project_id));
+            request.setAttribute("project", ProjectManager.getProjectByID(project_id));
             //request.setAttribute("skills", Joboonja.Database.projectManager.getProjectByID(project_id).getSkills());
         } catch (ProjectNotFoundException e) {
             e.printStackTrace();

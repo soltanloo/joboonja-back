@@ -2,6 +2,7 @@ package Servlets;
 
 import Exceptions.UserNotFoundException;
 import Joboonja.Database;
+import Joboonja.UserManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +21,8 @@ public class UserServlet extends HttpServlet {
         System.out.println("GET request to user id: " + request.getPathInfo().substring(1));
         try {
             Database.getInstance();
-            request.setAttribute("user", Database.userManager.getUserByID("1"));
-            request.setAttribute("skills", Database.userManager.getUserByID("1").getSkills());
+            request.setAttribute("user", UserManager.getUserByID("1"));
+            request.setAttribute("skills", UserManager.getUserByID("1").getSkills());
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
