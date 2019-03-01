@@ -1,5 +1,7 @@
 package Servlets;
 
+import Joboonja.UserManager;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ public class UsersServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("users", UserManager.getUsers());
         request.getRequestDispatcher("/users.jsp").forward(request, response);
     }
 }

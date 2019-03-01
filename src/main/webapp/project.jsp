@@ -22,7 +22,7 @@
             <li>imageUrl: <img src= '<c:out value="${project.imageUrl}" />' style="width: 50px; height: 50px;" ></li>
             <li>budget: <c:out value="${project.budget}" /></li>
         </ul>
-
+        <c:if test="">
         <!-- display form if user has not bidded before -->
         <form action="/project/bid" method="POST">
             <label for="bidAmount">Bid Amount:</label>

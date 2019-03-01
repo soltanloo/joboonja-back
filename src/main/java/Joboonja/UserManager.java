@@ -3,7 +3,9 @@ package Joboonja;
 import Exceptions.UserNotFoundException;
 import Models.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UserManager {
 
@@ -26,4 +28,6 @@ public class UserManager {
     public static User getCurrentUser() {
         return Database.currentUser;
     }
+
+    public static ArrayList<User> getUsers(){return Database.users;}
 }
