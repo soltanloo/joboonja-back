@@ -11,7 +11,7 @@ public class UserManager {
         if (Database.users.stream().noneMatch(u -> (u.getId().equals(newUser.getId()))))
             Database.users.add(newUser);
         else
-            System.out.println("Models.User \'" + newUser.getId() + "\' already exists.");
+            System.out.println("User \'" + newUser.getId() + "\' already exists.");
     }
 
     public static User getUserByID(String id) throws UserNotFoundException {
@@ -23,5 +23,7 @@ public class UserManager {
         }
         throw new UserNotFoundException(id);
     }
-
+    public static User getCurrentUser() {
+        return Database.currentUser;
+    }
 }

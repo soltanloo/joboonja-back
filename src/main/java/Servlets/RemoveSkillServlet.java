@@ -1,5 +1,6 @@
 package Servlets;
 
+import Exceptions.UserNotFoundException;
 import Joboonja.SkillManager;
 import Joboonja.UserManager;
 
@@ -10,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/addskill")
-public class AddSkillServlet extends HttpServlet {
+@WebServlet("/user/removeskill")
+public class RemoveSkillServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String skillName = request.getParameter("skillName");
-        SkillManager.addSkillToUser(skillName, UserManager.getCurrentUser());
+        SkillManager.removeSkillFromUser(skillName, UserManager.getCurrentUser());
         response.sendRedirect("/user/" + UserManager.getCurrentUser().getId());
     }
 }

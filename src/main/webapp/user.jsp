@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  Models.User: thesoli
+  User: thesoli
   Date: 2019-02-27
   Time: 11:03
   To change this template use File | Settings | File Templates.
@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Models.User</title>
+    <title>User</title>
 </head>
 <body>
 <ul>
@@ -24,19 +24,38 @@
     <li>
         skills:
         <ul>
-            <c:forEach var="skill" items="${skills}">
+            <c:forEach var="skill" items="${user.skills}">
                 <li>
                     <c:out value="${skill.name}"/>:  <c:out value="${skill.point}"/>
-                    <%--<c:if></c:if>--%>
-                    <form action="/user/endorseskill" method="POST">
-                        <input type="hidden" name="skillName" value="${skill.name}">
-                        <input type="hidden" name="endorser" value="${myId}">
-                        <button>Endorse</button>
-                    </form>
+                    <c:choose>
+                        <c:when test="${isCurrentUser}">
+                            <form action="/user/removeskill" method="POST">
+                                <input type="hidden" name="skillName" value="${skill.name}">
+                                <button>Delete</button>
+                            </form>
+                        </c:when>
+                        <c:when test="${!isCurrentUser}">
+                            <form action="/user/endorseskill" method="POST">
+                                <input type="hidden" name="skillName" value="${skill.name}">
+                                <button>Endorse</button>
+                            </form>
+                        </c:when>
+                    </c:choose>
                 </li>
             </c:forEach>
         </ul>
     </li>
+    <c:if test="${isCurrentUser && !addableSkills.isEmpty()}">
+        Add a skill:
+        <form action="/user/addskill" method="POST">
+            <select name="skillName">
+                <c:forEach var="skill" items="${addableSkills}">
+                    <option value="${skill.name}"><c:out value="${skill.name}"/></option>
+                </c:forEach>
+            </select>
+            <button>Add</button>
+        </form>
+    </c:if>
 </ul>
 </body>
 </html>

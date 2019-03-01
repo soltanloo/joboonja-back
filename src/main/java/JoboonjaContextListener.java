@@ -53,7 +53,7 @@ public class JoboonjaContextListener implements ServletContextListener {
                 ArrayList<Skill> skills = parser.parseSkills(responseBody);
                 for (Skill s:
                         skills) {
-                    SkillManager.addSkill(s);
+                    SkillManager.addSkillToSystem(s);
                 }
             }
         }

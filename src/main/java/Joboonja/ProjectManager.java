@@ -15,7 +15,7 @@ public class ProjectManager {
         if (Database.projects.stream().noneMatch(p -> (p.getId().equals(newProject.getId()))))
             Database.projects.add(newProject);
         else
-            System.out.println("Models.Project with ID \'" + newProject.getId() + "\' already exists.");
+            System.out.println("Project with ID \'" + newProject.getId() + "\' already exists.");
     }
 
     public static void bid(Bid newBid) throws IOException {
@@ -35,7 +35,7 @@ public class ProjectManager {
         }
         User finalUser = user;
         if (project.getBids().stream().anyMatch(bid -> bid.getBiddingUser().getId().equals(finalUser.getId())))
-            System.out.println("Models.User with ID \'" + user.getId() + "\' has already bidden on this project.");
+            System.out.println("User with ID \'" + user.getId() + "\' has already bidden on this project.");
         else if (project.getBudget() >= newBid.getBidAmount()){
             if (hasSkills(user, project)) {
                 project.addBid(newBid);
@@ -69,12 +69,11 @@ public class ProjectManager {
         return hasSkill;
     }
 
-    public static ArrayList<Project> getEligibleProjects() {
-        //TODO: get user as an argument
+    public static ArrayList<Project> getEligibleProjects(User user) {
         ArrayList<Project> eligibleProjects = new ArrayList<Project>();
         for (Project p :
                 Database.projects) {
-            if (hasSkills(Database.currentUser, p)) {
+            if (hasSkills(user, p)) {
                 eligibleProjects.add(p);
             }
         }

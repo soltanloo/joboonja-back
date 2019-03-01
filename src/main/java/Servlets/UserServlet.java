@@ -2,6 +2,7 @@ package Servlets;
 
 import Exceptions.UserNotFoundException;
 import Joboonja.Database;
+import Joboonja.SkillManager;
 import Joboonja.UserManager;
 
 import javax.servlet.ServletException;
@@ -13,20 +14,17 @@ import java.io.IOException;
 
 @WebServlet("/user/*")
 public class UserServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("POST request to user id: " + request.getPathInfo().substring(1));
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("GET request to user id: " + request.getPathInfo().substring(1));
+        String userId = request.getPathInfo().substring(1);
+        boolean isCurrentUser = false;
         try {
-            Database.getInstance();
-            request.setAttribute("user", UserManager.getUserByID("1"));
-            request.setAttribute("skills", UserManager.getUserByID("1").getSkills());
+            isCurrentUser = UserManager.getCurrentUser().equals(UserManager.getUserByID(userId));
+            request.setAttribute("user", UserManager.getUserByID(userId));
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
-        request.setAttribute("myId", 1);
+        request.setAttribute("addableSkills", SkillManager.getAddableSkills(UserManager.getCurrentUser()));
+        request.setAttribute("isCurrentUser", isCurrentUser);
         request.getRequestDispatcher("/user.jsp").forward(request, response);
     }
 }
