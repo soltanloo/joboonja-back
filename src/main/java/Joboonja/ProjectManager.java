@@ -1,6 +1,7 @@
 package Joboonja;
 
 import Exceptions.ProjectNotFoundException;
+import Exceptions.UserNotFoundException;
 import Models.Bid;
 import Models.Project;
 import Models.Skill;
@@ -41,6 +42,14 @@ public class ProjectManager {
                 project.addBid(newBid);
             }
         }
+    }
+
+    public static void addNewBid(int bidAmount , String userid , String projectid) throws UserNotFoundException,ProjectNotFoundException
+    ,IOException{
+            User bidUser = UserManager.getUserByID(userid);
+            Project bidProject = ProjectManager.getProjectByID(projectid);
+            Bid newbid = new Bid(bidUser,bidProject,bidAmount);
+            ProjectManager.bid(newbid);
     }
 
     public static Project getProjectByID(String id) throws ProjectNotFoundException {

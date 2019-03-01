@@ -28,6 +28,7 @@
             <label for="bidAmount">Bid Amount:</label>
             <input type="number" name="bidAmount" id="bidAmount">
             <input type="hidden" name="bidder" value="${myId}">
+            <input type="hidden" name="projectid" value="${project.id}">
             <button>Submit</button>
         </form>
     </body>
