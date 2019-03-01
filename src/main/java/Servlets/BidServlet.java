@@ -4,7 +4,6 @@ import Exceptions.ProjectNotFoundException;
 import Exceptions.UserNotFoundException;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
-import Models.Project;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,18 +15,14 @@ import java.io.IOException;
 @WebServlet("/project/bid")
 public class BidServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String amount = request.getParameter("bidAmount");
-        String bidder = request.getParameter("bidder");
-        String prjid = request.getParameter("projectid");
-        int bidAmount = Integer.parseInt(amount);
+        int bidAmount = Integer.valueOf(request.getParameter("bidAmount"));
+        String projectId = request.getParameter("projectId");
         try {
-            ProjectManager.addNewBid(bidAmount, bidder, prjid);
-            response.sendRedirect("/project/bid"+ ProjectManager.getProjectByID(prjid));
-        }catch (ProjectNotFoundException e){
-            e.printStackTrace();
-        }catch (UserNotFoundException e){
+            ProjectManager.addBidToProject(bidAmount, UserManager.getCurrentUser().getId(), projectId);
+        }catch (UserNotFoundException | ProjectNotFoundException e){
             e.printStackTrace();
         }
+        response.sendRedirect("/project/"+ projectId);
     }
 
 

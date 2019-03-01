@@ -35,8 +35,7 @@
     <c:forEach var="user" items="${users}">
         <tr>
             <td><c:out value="${user.id}" /></td>
-            <td><c:out value="${user.firstName}" /></td>
-            <td><c:out value="${user.lastName}" /></td>
+            <td><c:out value="${user.firstName}" /> <c:out value="${user.lastName}" /></td>
             <td><c:out value="${user.jobTitle}" /></td>
         </tr>
     </c:forEach>

@@ -44,12 +44,16 @@ public class ProjectManager {
         }
     }
 
-    public static void addNewBid(int bidAmount , String userid , String projectid) throws UserNotFoundException,ProjectNotFoundException
-    ,IOException{
-            User bidUser = UserManager.getUserByID(userid);
-            Project bidProject = ProjectManager.getProjectByID(projectid);
-            Bid newbid = new Bid(bidUser,bidProject,bidAmount);
-            ProjectManager.bid(newbid);
+    public static void addBidToProject(int bidAmount, String userId, String projectId) throws UserNotFoundException,
+        ProjectNotFoundException, IOException {
+        User user = UserManager.getUserByID(userId);
+        Project project = ProjectManager.getProjectByID(projectId);
+        Bid newBid = new Bid(user, project, bidAmount);
+        if (project.getBids().stream().noneMatch(bid -> bid.getBiddingUser().getId().equals(userId))) {
+            ProjectManager.bid(newBid);
+        } else {
+            //TODO: throw exception
+        }
     }
 
     public static Project getProjectByID(String id) throws ProjectNotFoundException {

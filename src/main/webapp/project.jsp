@@ -22,14 +22,18 @@
             <li>imageUrl: <img src= '<c:out value="${project.imageUrl}" />' style="width: 50px; height: 50px;" ></li>
             <li>budget: <c:out value="${project.budget}" /></li>
         </ul>
-        <c:if test="">
-        <!-- display form if user has not bidded before -->
-        <form action="/project/bid" method="POST">
-            <label for="bidAmount">Bid Amount:</label>
-            <input type="number" name="bidAmount" id="bidAmount">
-            <input type="hidden" name="bidder" value="${myId}">
-            <input type="hidden" name="projectid" value="${project.id}">
-            <button>Submit</button>
-        </form>
+        <c:choose>
+            <c:when test="${hasBidden}">
+                You have already bidden on this project.
+            </c:when>
+            <c:when test="${!hasBidden}">
+                <form action="/project/bid" method="POST">
+                    <label for="bidAmount">Bid Amount:</label>
+                    <input type="number" name="bidAmount" id="bidAmount">
+                    <input type="hidden" name="projectId" value="${project.id}">
+                    <button>Bid</button>
+                </form>
+            </c:when>
+        </c:choose>
     </body>
 </html>
