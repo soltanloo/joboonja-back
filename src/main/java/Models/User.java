@@ -1,3 +1,7 @@
+package Models;
+
+import Models.Skill;
+
 import java.util.ArrayList;
 
 public class User{

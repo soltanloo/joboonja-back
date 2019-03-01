@@ -1,3 +1,5 @@
+package Models;
+
 public class Skill{
     private String name = "";
     private int point = 0;

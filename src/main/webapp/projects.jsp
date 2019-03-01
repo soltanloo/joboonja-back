@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: thesoli
+  Models.User: thesoli
   Date: 2019-02-27
   Time: 10:44
   To change this template use File | Settings | File Templates.

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: thesoli
+  Models.User: thesoli
   Date: 2019-02-27
   Time: 11:03
   To change this template use File | Settings | File Templates.
@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Project</title>
+    <title>Models.Project</title>
 </head>
 <body>
 <ul>
@@ -25,7 +25,7 @@
 
 <!-- display form if user has not bidded before -->
 <form action="/project/bid" method="POST">
-    <label for="bidAmount">Bid Amount:</label>
+    <label for="bidAmount">Models.Bid Amount:</label>
     <input type="number" name="bidAmount">
     <input type="hidden" name="bidder" value="${myId}">
     <button>Submit</button>

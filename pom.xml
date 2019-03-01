@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>joboonja</groupId>
-  <artifactId>jaboonja</artifactId>
+  <artifactId>joboonja</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>jaboonja Maven Webapp</name>
+  <name>joboonja Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -53,7 +53,7 @@
 
 
   <build>
-    <finalName>jaboonja</finalName>
+    <finalName>joboonja</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

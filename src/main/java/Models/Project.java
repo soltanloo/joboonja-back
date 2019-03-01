@@ -1,3 +1,7 @@
+package Models;
+
+import Models.Bid;
+
 import java.util.ArrayList;
 
 public class Project{

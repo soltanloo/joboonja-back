@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: thesoli
+  Models.User: thesoli
   Date: 2019-02-27
   Time: 11:03
   To change this template use File | Settings | File Templates.
@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Models.User</title>
 </head>
 <body>
 <ul>
