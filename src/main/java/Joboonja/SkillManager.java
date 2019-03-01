@@ -16,7 +16,7 @@ public class SkillManager {
     }
     public static void addSkillToUser(String skillName, User user) {
         try {
-            UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName, 0));
+            UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
         } catch (UserNotFoundException e) {
             //TODO
         }
@@ -29,7 +29,7 @@ public class SkillManager {
             return;
         }
     }
-    public static ArrayList<Skill> getAddableSkills(User user) {
+    public static ArrayList<Skill> getAddableSkillsOfUser(User user) {
         ArrayList<Skill> addableSkills = new ArrayList<>();
         for (Skill skill :
                 Database.skills) {
@@ -38,5 +38,13 @@ public class SkillManager {
             }
         }
         return addableSkills;
+    }
+    public static void endorseSkillOfUser(String skillName, String endorserId, User user) {
+        for (Skill s :
+                user.getSkills()) {
+            if (s.getName().equals(skillName)) {
+                s.addEndorser(endorserId);
+            }
+        }
     }
 }

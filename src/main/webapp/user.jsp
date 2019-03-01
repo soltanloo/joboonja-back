@@ -34,9 +34,10 @@
                                 <button>Delete</button>
                             </form>
                         </c:when>
-                        <c:when test="${!isCurrentUser}">
+                        <c:when test="${!isCurrentUser and !skillsEndorsed[skill.name]}">
                             <form action="/user/endorseskill" method="POST">
                                 <input type="hidden" name="skillName" value="${skill.name}">
+                                <input type="hidden" name="endorseeId" value="${user.id}">
                                 <button>Endorse</button>
                             </form>
                         </c:when>

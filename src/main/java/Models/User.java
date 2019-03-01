@@ -3,8 +3,9 @@ package Models;
 import Models.Skill;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class User{
+public class User {
     private String id;
     private String firstName;
     private String lastName;
@@ -85,4 +86,5 @@ public class User{
     public void setBio(String bio) {
         this.bio = bio;
     }
+
 }

@@ -1,14 +1,34 @@
 package Models;
 
+import java.util.ArrayList;
+
 public class Skill{
     private String name = "";
-    private int point = 0;
+    private ArrayList<String> endorsers;
+    private int point;
 
-    public Skill() {}
+    public Skill() {
+        this.endorsers = new ArrayList<>();
+        this.point = 0;
+    }
+
+    public Skill(String name) {
+        this.name = name;
+        this.endorsers = new ArrayList<>();
+        this.point = 0;
+    }
 
     public Skill(String name, int point) {
         this.name = name;
+        this.endorsers = new ArrayList<>();
         this.point = point;
+    }
+
+    public Skill(String name, ArrayList<String> endorsers) {
+        this.name = name;
+        this.endorsers = new ArrayList<>();
+        this.endorsers = endorsers;
+        this.point = endorsers.size();
     }
 
     public String getName() {
@@ -25,5 +45,18 @@ public class Skill{
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public ArrayList<String> getEndorsers() {
+        return endorsers;
+    }
+
+    public void setEndorsers(ArrayList<String> endorsers) {
+        this.endorsers = endorsers;
+    }
+
+    public void addEndorser(String id) {
+        this.endorsers.add(id);
+        this.point++;
     }
 }

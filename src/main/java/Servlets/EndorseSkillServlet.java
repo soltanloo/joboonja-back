@@ -1,5 +1,9 @@
 package Servlets;
 
+import Exceptions.UserNotFoundException;
+import Joboonja.SkillManager;
+import Joboonja.UserManager;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +15,14 @@ import java.io.IOException;
 @WebServlet("/user/endorseskill")
 public class EndorseSkillServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String user_id = request.getParameter("endorser");
         String skillName = request.getParameter("skillName");
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("GET request to endorseskill.");
+        String endorseeId = request.getParameter("endorseeId");
+        try {
+            SkillManager.endorseSkillOfUser(skillName, UserManager.getCurrentUser().getId(),
+                    UserManager.getUserByID(endorseeId));
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/user/" + endorseeId);
     }
 }
