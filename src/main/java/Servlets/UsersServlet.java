@@ -13,9 +13,12 @@ import java.util.ArrayList;
 
 @WebServlet("/user")
 public class UsersServlet extends HttpServlet {
+
+    private User currentUser = UserManager.getCurrentUser();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<User> users = (ArrayList<User>) UserManager.getUsers().clone();
-        users.remove(UserManager.getCurrentUser());
+        users.remove(currentUser);
         request.setAttribute("users", users);
         request.getRequestDispatcher("/users.jsp").forward(request, response);
     }

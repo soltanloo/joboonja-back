@@ -5,6 +5,7 @@ import Joboonja.Database;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
 import Models.Project;
+import Models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,17 +16,34 @@ import java.io.IOException;
 
 @WebServlet("/project/*")
 public class ProjectServlet extends HttpServlet {
+
+    private User currentUser = UserManager.getCurrentUser();
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String projectId = request.getPathInfo().substring(1);
-        Project project = new Project();
-        try {
-            project = ProjectManager.getProjectByID(projectId);
-        } catch (ProjectNotFoundException e) {
-            e.printStackTrace();
+        if (request.getPathInfo().equals("/")) {
+            response.sendRedirect("/project");
+        } else {
+            String projectId = request.getPathInfo().substring(1);
+            try {
+                Project project = ProjectManager.getProjectByID(projectId);
+                if (ProjectManager.hasSkills(currentUser, project)) {
+                    request.setAttribute("project", project);
+                    request.setAttribute("hasBidden", project.getBids().stream()
+                            .anyMatch(bid -> bid.getBiddingUser().getId().equals(currentUser.getId())));
+                    request.getRequestDispatcher("/project.jsp").forward(request, response);
+                } else {
+                    response.setStatus(403);
+                    request.setAttribute("message",
+                            "You don't have enough skills to access project with id \'" + projectId + "\'.");
+                    request.getRequestDispatcher("/403.jsp").forward(request, response);
+                }
+            } catch (ProjectNotFoundException e) {
+                response.setStatus(404);
+                request.setAttribute("message",
+                        "Project with id \'" + projectId + "\' was not found.");
+                request.getRequestDispatcher("/404.jsp").forward(request, response);
+            }
+
         }
-        request.setAttribute("project", project);
-        request.setAttribute("hasBidden", project.getBids().stream()
-                .anyMatch(bid -> bid.getBiddingUser().getId().equals(UserManager.getCurrentUser().getId())));
-        request.getRequestDispatcher("/project.jsp").forward(request, response);
     }
 }
