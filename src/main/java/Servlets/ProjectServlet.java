@@ -1,7 +1,6 @@
 package Servlets;
 
-import Exceptions.ProjectNotFoundException;
-import Joboonja.Database;
+import Exceptions.ProjectException;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
 import Models.Project;
@@ -37,10 +36,10 @@ public class ProjectServlet extends HttpServlet {
                             "You don't have enough skills to access project with id \'" + projectId + "\'.");
                     request.getRequestDispatcher("/403.jsp").forward(request, response);
                 }
-            } catch (ProjectNotFoundException e) {
+            } catch (ProjectException e) {
                 response.setStatus(404);
                 request.setAttribute("message",
-                        "Project with id \'" + projectId + "\' was not found.");
+                        e.getMessage());
                 request.getRequestDispatcher("/404.jsp").forward(request, response);
             }
 

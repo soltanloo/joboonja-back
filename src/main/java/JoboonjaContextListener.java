@@ -1,3 +1,5 @@
+import Exceptions.ProjectException;
+import Exceptions.SkillException;
 import Joboonja.Database;
 import Joboonja.ProjectManager;
 import Joboonja.SkillManager;
@@ -23,19 +25,10 @@ public class JoboonjaContextListener implements ServletContextListener {
         Parser parser = new Parser();
         try {
             fetchURL(parser, "project");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             fetchURL(parser, "skill");
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
     }
 
     private static void fetchURL(Parser parser, String kind) throws IOException {
@@ -56,6 +49,8 @@ public class JoboonjaContextListener implements ServletContextListener {
                     SkillManager.addSkillToSystem(s);
                 }
             }
+        } catch (SkillException | ProjectException e) {
+            e.printStackTrace();
         }
     }
 }

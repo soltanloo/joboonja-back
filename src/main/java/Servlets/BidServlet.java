@@ -1,7 +1,7 @@
 package Servlets;
 
-import Exceptions.ProjectNotFoundException;
-import Exceptions.UserNotFoundException;
+import Exceptions.ProjectException;
+import Exceptions.UserException;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
 import Models.User;
@@ -23,14 +23,13 @@ public class BidServlet extends HttpServlet {
         String projectId = request.getParameter("projectId");
         try {
             ProjectManager.addBidToProject(bidAmount, currentUser.getId(), projectId);
-        }catch (UserNotFoundException | ProjectNotFoundException e){
-            e.printStackTrace();
+            response.sendRedirect("/project/"+ projectId);
+        } catch (UserException | ProjectException e){
+            response.setStatus(404);
+            request.setAttribute("message",
+                    e.getMessage());
+            request.getRequestDispatcher("/404.jsp").forward(request, response);
         }
-        response.sendRedirect("/project/"+ projectId);
-    }
 
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/bid.jsp").forward(request, response);
     }
 }

@@ -1,7 +1,5 @@
 package Servlets;
 
-import Exceptions.UserNotFoundException;
-import Joboonja.Database;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
 

@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
+<head>
+    <title>Joboonja</title>
+</head>
 <body>
-<h2>با افتخار تقدیم می‌کند.</h2>
+<h2>Joboonja Home Page</h2>
 </body>
 </html>

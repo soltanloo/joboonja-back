@@ -1,7 +1,5 @@
 package Models;
 
-import Models.Bid;
-
 import java.util.ArrayList;
 
 public class Project{
@@ -9,8 +7,8 @@ public class Project{
     private String title;
     private String description;
     private String imageUrl;
-    private ArrayList<Skill> skills = new ArrayList <Skill>();
-    private ArrayList<Bid> bids = new ArrayList<Bid>();
+    private ArrayList<Skill> skills = new ArrayList<>();
+    private ArrayList<Bid> bids = new ArrayList<>();
     private int budget = 0;
     private long deadline;
     private User winner;

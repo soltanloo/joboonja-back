@@ -1,5 +1,6 @@
 package Servlets;
 
+import Exceptions.UserException;
 import Joboonja.SkillManager;
 import Joboonja.UserManager;
 import Models.User;
@@ -18,7 +19,14 @@ public class AddSkillServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String skillName = request.getParameter("skillName");
-        SkillManager.addSkillToUser(skillName, currentUser);
-        response.sendRedirect("/user/" + currentUser.getId());
+        try {
+            SkillManager.addSkillToUser(skillName, currentUser);
+            response.sendRedirect("/user/" + currentUser.getId());
+        } catch (UserException e) {
+            response.setStatus(404);
+            request.setAttribute("message",
+                    e.getMessage());
+            request.getRequestDispatcher("/404.jsp").forward(request, response);
+        }
     }
 }

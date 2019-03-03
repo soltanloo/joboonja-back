@@ -1,6 +1,6 @@
 package Servlets;
 
-import Exceptions.UserNotFoundException;
+import Exceptions.UserException;
 import Joboonja.SkillManager;
 import Joboonja.UserManager;
 import Models.Skill;
@@ -39,10 +39,10 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("addableSkills", SkillManager.getAddableSkillsOfUser(currentUser));
                 request.setAttribute("isCurrentUser", isCurrentUser);
                 request.getRequestDispatcher("/user.jsp").forward(request, response);
-            } catch (UserNotFoundException e) {
+            } catch (UserException e) {
                 response.setStatus(404);
                 request.setAttribute("message",
-                        "User with id \'" + userId + "\' was not found.");
+                        e.getMessage());
                 request.getRequestDispatcher("/404.jsp").forward(request, response);
             }
         }

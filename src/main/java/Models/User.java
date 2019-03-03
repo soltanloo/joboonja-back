@@ -1,9 +1,7 @@
 package Models;
 
-import Models.Skill;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class User {
     private String id;

@@ -1,6 +1,6 @@
 package Servlets;
 
-import Exceptions.UserNotFoundException;
+import Exceptions.SkillException;
 import Joboonja.SkillManager;
 import Joboonja.UserManager;
 
@@ -15,7 +15,14 @@ import java.io.IOException;
 public class RemoveSkillServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String skillName = request.getParameter("skillName");
-        SkillManager.removeSkillFromUser(skillName, UserManager.getCurrentUser());
-        response.sendRedirect("/user/" + UserManager.getCurrentUser().getId());
+        try {
+            SkillManager.removeSkillFromUser(skillName, UserManager.getCurrentUser());
+            response.sendRedirect("/user/" + UserManager.getCurrentUser().getId());
+        } catch (SkillException e) {
+            response.setStatus(404);
+            request.setAttribute("message",
+                    e.getMessage());
+            request.getRequestDispatcher("/404.jsp").forward(request, response);
+        }
     }
 }

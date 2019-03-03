@@ -1,33 +1,26 @@
 package Joboonja;
 
-import Exceptions.UserNotFoundException;
+import Exceptions.SkillException;
+import Exceptions.UserException;
 import Models.Skill;
 import Models.User;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class SkillManager {
-    public static void addSkillToSystem(Skill skill) {
+    public static void addSkillToSystem(Skill skill) throws SkillException {
         if (Database.skills.stream().noneMatch(s -> (s.getName().equals(skill.getName()))))
             Database.skills.add(skill);
         else
-            System.out.println("Skill \'" + skill.getName() + "\' already exists.");
+            throw new SkillException("Skill \'" + skill.getName() + "\' already exists.");
     }
-    public static void addSkillToUser(String skillName, User user) {
-        try {
-            UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
-        } catch (UserNotFoundException e) {
-            //TODO
-        }
+    public static void addSkillToUser(String skillName, User user) throws UserException {
+        UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
     }
-    public static void removeSkillFromUser(String skillName, User user) {
-        if (user.getSkills().removeIf(skill -> skill.getName().equals(skillName))) {
-            return;
-        } else {
-            //TODO: throw SkillNotFoundException();
-            return;
-        }
+    public static void removeSkillFromUser(String skillName, User user) throws SkillException {
+        if (!user.getSkills().removeIf(skill -> skill.getName().equals(skillName)))
+            throw new SkillException("Skill \'" + skillName
+                    + "\' was not found for user with id \'" + user.getId() + "\'.");
     }
     public static ArrayList<Skill> getAddableSkillsOfUser(User user) {
         ArrayList<Skill> addableSkills = new ArrayList<>();
@@ -39,12 +32,15 @@ public class SkillManager {
         }
         return addableSkills;
     }
-    public static void endorseSkillOfUser(String skillName, String endorserId, User user) {
+    public static void endorseSkillOfUser(String skillName, String endorserId, User user) throws SkillException {
         for (Skill s :
                 user.getSkills()) {
             if (s.getName().equals(skillName)) {
                 s.addEndorser(endorserId);
+                return;
             }
         }
+        throw new SkillException("Skill \'" + skillName
+                + "\' was not found for user with id \'" + user.getId() + "\'.");
     }
 }
