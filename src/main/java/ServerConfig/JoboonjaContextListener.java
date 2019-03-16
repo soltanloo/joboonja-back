@@ -1,3 +1,5 @@
+package ServerConfig;
+
 import Exceptions.ProjectException;
 import Exceptions.SkillException;
 import Joboonja.Database;
