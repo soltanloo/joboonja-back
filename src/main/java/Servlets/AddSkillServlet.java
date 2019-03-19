@@ -12,14 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/user/addskill")
+@WebServlet("/users/addskill")
 public class AddSkillServlet extends HttpServlet {
 
     private User currentUser = UserManager.getCurrentUser();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String skillName = request.getParameter("skillName");
-        System.out.println(skillName);
         try {
             SkillManager.addSkillToUser(skillName, currentUser);
             response.sendRedirect("/user/" + currentUser.getId());

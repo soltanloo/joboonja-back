@@ -15,6 +15,7 @@ public class SkillManager {
             throw new SkillException("Skill \'" + skill.getName() + "\' already exists.");
     }
     public static void addSkillToUser(String skillName, User user) throws UserException {
+
         UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
     }
     public static void removeSkillFromUser(String skillName, User user) throws SkillException {
