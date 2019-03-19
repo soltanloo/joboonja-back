@@ -15,7 +15,9 @@ public class SkillManager {
             throw new SkillException("Skill \'" + skill.getName() + "\' already exists.");
     }
     public static void addSkillToUser(String skillName, User user) throws UserException, SkillException {
-        if (Database.skills.stream().anyMatch(s -> (s.getName().equals(skillName))))
+        if (user.getSkills().stream().anyMatch(s -> (s.getName().equals(skillName))))
+            throw new SkillException("User already owns skill \'" + skillName + "\'.");
+        else if (Database.skills.stream().anyMatch(s -> (s.getName().equals(skillName))))
             UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
         else
             throw new SkillException("There is no skill named \'" + skillName +
