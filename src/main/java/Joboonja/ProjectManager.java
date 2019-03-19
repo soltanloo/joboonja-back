@@ -1,5 +1,6 @@
 package Joboonja;
 
+import Exceptions.BidException;
 import Exceptions.ProjectException;
 import Exceptions.UserException;
 import Models.Bid;
@@ -19,7 +20,7 @@ public class ProjectManager {
     }
 
     public static void addBidToProject(int bidAmount, String userId, String projectId) throws UserException,
-            ProjectException {
+            ProjectException, BidException {
         User user = UserManager.getUserByID(userId);
         Project project = ProjectManager.getProjectByID(projectId);
         Bid newBid = new Bid(user, project, bidAmount);
@@ -28,15 +29,15 @@ public class ProjectManager {
                 if (hasSkills(user, project)) {
                     project.addBid(newBid);
                 } else {
-                    throw new ProjectException("User with id \'" + userId
+                    throw new BidException("User with id \'" + userId
                             + "\' does not have enough skills to bid on project with id \'" + projectId + "\'.");
                 }
             } else {
-                throw new ProjectException("Project with id \'" + projectId
+                throw new BidException("Project with id \'" + projectId
                         + "\' has a maximum budget of \'" + project.getBudget() + "\'.");
             }
         } else {
-            throw new ProjectException("User with id \'" + userId
+            throw new BidException("User with id \'" + userId
                     + "\' has already bidden on project with id \'" + projectId + "\'.");
         }
     }

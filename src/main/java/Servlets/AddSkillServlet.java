@@ -20,17 +20,16 @@ import java.io.PrintWriter;
 public class AddSkillServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         String userId = request.getParameter("id");
         String skillName = request.getParameter("skillName");
+        PrintWriter out = response.getWriter();
         MessageWithStatusCode messageWithStatusCode = new MessageWithStatusCode();
+        ObjectMapper mapper = new ObjectMapper();
+        response.setContentType("application/json;charset=UTF-8");
         try {
             SkillManager.addSkillToUser(skillName, UserManager.getUserByID(userId));
             messageWithStatusCode.setStatusCode(200);
             messageWithStatusCode.setMessage("Skill is added successfully.");
-
         } catch (UserException e) {
             response.setStatus(404);
             messageWithStatusCode.setStatusCode(200);

@@ -1,5 +1,6 @@
 package Joboonja;
 
+import Exceptions.SkillEndorsementException;
 import Exceptions.SkillException;
 import Exceptions.UserException;
 import Models.Skill;
@@ -38,11 +39,18 @@ public class SkillManager {
         }
         return addableSkills;
     }
-    public static void endorseSkillOfUser(String skillName, String endorserId, User user) throws SkillException {
+    public static void endorseSkillOfUser(String skillName, String endorserId, User user) throws SkillException, SkillEndorsementException {
+        if (endorserId.equals(user.getId()))
+            throw new SkillEndorsementException("Users can't endorse their own skills!");
         for (Skill s :
                 user.getSkills()) {
             if (s.getName().equals(skillName)) {
-                s.addEndorser(endorserId);
+                if (s.getEndorsers().contains(endorserId))
+                    throw new SkillEndorsementException("User with id \'" + endorserId +
+                            "\' has already endorsed skill \'" + skillName +
+                            "\' of user with id \'" + user.getId() + "\'.");
+                else
+                    s.addEndorser(endorserId);
                 return;
             }
         }

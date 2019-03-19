@@ -1,6 +1,7 @@
 package Servlets;
 
 import DTOs.MessageWithStatusCode;
+import Exceptions.BidException;
 import Exceptions.ProjectException;
 import Exceptions.UserException;
 import Joboonja.ProjectManager;
@@ -30,11 +31,11 @@ public class BidServlet extends HttpServlet {
             ProjectManager.addBidToProject(bidAmount, UserManager.getCurrentUser().getId(), projectId);
             messageWithStatusCode.setStatusCode(200);
             messageWithStatusCode.setMessage("Bid is submitted successfully.");
-        } catch (UserException e){
+        } catch (UserException | ProjectException e){
             response.setStatus(404);
             messageWithStatusCode.setStatusCode(404);
             messageWithStatusCode.setMessage(e.getMessage());
-        } catch (ProjectException e){
+        } catch (BidException e) {
             response.setStatus(400);
             messageWithStatusCode.setStatusCode(400);
             messageWithStatusCode.setMessage(e.getMessage());
