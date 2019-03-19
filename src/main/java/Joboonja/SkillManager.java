@@ -14,9 +14,12 @@ public class SkillManager {
         else
             throw new SkillException("Skill \'" + skill.getName() + "\' already exists.");
     }
-    public static void addSkillToUser(String skillName, User user) throws UserException {
-
-        UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
+    public static void addSkillToUser(String skillName, User user) throws UserException, SkillException {
+        if (Database.skills.stream().anyMatch(s -> (s.getName().equals(skillName))))
+            UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
+        else
+            throw new SkillException("There is no skill named \'" + skillName +
+                    "\' available to add in the system.");
     }
     public static void removeSkillFromUser(String skillName, User user) throws SkillException {
         if (!user.getSkills().removeIf(skill -> skill.getName().equals(skillName)))
