@@ -1,7 +1,10 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class Bid{
     private User biddingUser;
+    @JsonBackReference
     private Project project;
     private int bidAmount;
 

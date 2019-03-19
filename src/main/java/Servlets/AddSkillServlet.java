@@ -19,6 +19,7 @@ public class AddSkillServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String skillName = request.getParameter("skillName");
+        System.out.println(skillName);
         try {
             SkillManager.addSkillToUser(skillName, currentUser);
             response.sendRedirect("/user/" + currentUser.getId());

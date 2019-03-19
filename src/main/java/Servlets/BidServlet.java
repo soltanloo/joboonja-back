@@ -13,16 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/project/bid")
+@WebServlet("/projects/bid")
 public class BidServlet extends HttpServlet {
-
-    private User currentUser = UserManager.getCurrentUser();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int bidAmount = Integer.valueOf(request.getParameter("bidAmount"));
         String projectId = request.getParameter("projectId");
         try {
-            ProjectManager.addBidToProject(bidAmount, currentUser.getId(), projectId);
+            ProjectManager.addBidToProject(bidAmount, UserManager.getCurrentUser().getId(), projectId);
             response.sendRedirect("/project/"+ projectId);
         } catch (UserException | ProjectException e){
             response.setStatus(404);

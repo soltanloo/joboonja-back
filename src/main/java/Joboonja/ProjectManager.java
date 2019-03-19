@@ -48,7 +48,7 @@ public class ProjectManager {
                 return p;
             }
         }
-        throw new ProjectException(id);
+        throw new ProjectException("Project with id \'" + id + "\' was not found.");
     }
 
     public static Boolean hasSkills(User user , Project project){

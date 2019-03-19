@@ -1,5 +1,7 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 
 public class Project{
@@ -8,6 +10,8 @@ public class Project{
     private String description;
     private String imageUrl;
     private ArrayList<Skill> skills = new ArrayList<>();
+
+    @JsonManagedReference
     private ArrayList<Bid> bids = new ArrayList<>();
     private int budget = 0;
     private long deadline;
