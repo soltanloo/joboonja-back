@@ -19,14 +19,14 @@ public class SkillManager {
         if (user.getSkills().stream().anyMatch(s -> (s.getName().equals(skillName))))
             throw new SkillException("User already owns skill \'" + skillName + "\'.");
         else if (Database.skills.stream().anyMatch(s -> (s.getName().equals(skillName))))
-            UserManager.getUserByID(user.getId()).addSkill(new Skill(skillName));
+            UserManager.getUserByID(user.getId()).addSkill(new Skill(user.getSkills().size(), skillName));
         else
             throw new SkillException("There is no skill named \'" + skillName +
                     "\' available to add in the system.");
     }
-    public static void removeSkillFromUser(String skillName, User user) throws SkillException {
-        if (!user.getSkills().removeIf(skill -> skill.getName().equals(skillName)))
-            throw new SkillException("Skill \'" + skillName
+    public static void removeSkillFromUser(int skillId, User user) throws SkillException {
+        if (!user.getSkills().removeIf(skill -> skill.getId() == skillId))
+            throw new SkillException("Skill with id \'" + skillId
                     + "\' was not found for user with id \'" + user.getId() + "\'.");
     }
     public static ArrayList<Skill> getAddableSkillsOfUser(User user) {
@@ -39,22 +39,22 @@ public class SkillManager {
         }
         return addableSkills;
     }
-    public static void endorseSkillOfUser(String skillName, String endorserId, User user) throws SkillException, SkillEndorsementException {
+    public static void endorseSkillOfUser(int skillId, String endorserId, User user) throws SkillException, SkillEndorsementException {
         if (endorserId.equals(user.getId()))
             throw new SkillEndorsementException("Users can't endorse their own skills!");
         for (Skill s :
                 user.getSkills()) {
-            if (s.getName().equals(skillName)) {
+            if (s.getId() == (skillId)) {
                 if (s.getEndorsers().contains(endorserId))
                     throw new SkillEndorsementException("User with id \'" + endorserId +
-                            "\' has already endorsed skill \'" + skillName +
+                            "\' has already endorsed skill with id \'" + skillId +
                             "\' of user with id \'" + user.getId() + "\'.");
                 else
                     s.addEndorser(endorserId);
                 return;
             }
         }
-        throw new SkillException("Skill \'" + skillName
+        throw new SkillException("Skill with id \'" + skillId
                 + "\' was not found for user with id \'" + user.getId() + "\'.");
     }
 }

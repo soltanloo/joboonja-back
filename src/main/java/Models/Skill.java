@@ -2,7 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Skill{
+public class Skill {
+    private int id;
     private String name = "";
     private ArrayList<String> endorsers;
     private int point;
@@ -18,7 +19,15 @@ public class Skill{
         this.point = 0;
     }
 
-    public Skill(String name, int point) {
+    public Skill(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.endorsers = new ArrayList<>();
+        this.point = 0;
+    }
+
+    public Skill(int id, String name, int point) {
+        this.id = id;
         this.name = name;
         this.endorsers = new ArrayList<>();
         this.point = point;
@@ -58,5 +67,9 @@ public class Skill{
     public void addEndorser(String id) {
         this.endorsers.add(id);
         this.point++;
+    }
+
+    public int getId() {
+        return id;
     }
 }
