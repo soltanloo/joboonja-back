@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 public class SkillsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("id");
+        Integer userId = Integer.parseInt(request.getParameter("id"));
         String skillName = request.getParameter("skillName");
         PrintWriter out = response.getWriter();
         MessageWithStatusCode messageWithStatusCode = new MessageWithStatusCode();
@@ -30,7 +30,7 @@ public class SkillsServlet extends HttpServlet {
         try {
             SkillManager.addSkillToUser(skillName, UserManager.getUserByID(userId));
             messageWithStatusCode.setStatusCode(200);
-            messageWithStatusCode.setMessage("Skill is added successfully.");
+            messageWithStatusCode.setMessage("UserSkill is added successfully.");
         } catch (UserException e) {
             response.setStatus(404);
             messageWithStatusCode.setStatusCode(200);
@@ -45,8 +45,8 @@ public class SkillsServlet extends HttpServlet {
     }
 
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String endorserId = request.getParameter("endorserId");
-        String endorseeId = request.getParameter("id");
+        Integer endorserId = Integer.parseInt(request.getParameter("endorserId"));
+        Integer endorseeId = Integer.parseInt(request.getParameter("id"));
         int skillId = Integer.parseInt(request.getParameter("skillId"));
         ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json;charset=UTF-8");
@@ -54,10 +54,10 @@ public class SkillsServlet extends HttpServlet {
         MessageWithStatusCode messageWithStatusCode = new MessageWithStatusCode();
         try {
             SkillManager.endorseSkillOfUser(skillId, endorserId,
-                    UserManager.getUserByID(endorseeId));
+                    endorseeId);
             messageWithStatusCode.setStatusCode(200);
-            messageWithStatusCode.setMessage("Skill is endorsed successfully.");
-        } catch (UserException | SkillException e) {
+            messageWithStatusCode.setMessage("UserSkill is endorsed successfully.");
+        } catch (SkillException e) {
             response.setStatus(404);
             messageWithStatusCode.setStatusCode(404);
             messageWithStatusCode.setMessage(e.getMessage());
@@ -75,12 +75,12 @@ public class SkillsServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         MessageWithStatusCode messageWithStatusCode = new MessageWithStatusCode();
-        String userId = request.getParameter("id");
+        Integer userId = Integer.parseInt(request.getParameter("id"));
         int skillId = Integer.parseInt(request.getParameter("skillId"));
         try {
             SkillManager.removeSkillFromUser(skillId, UserManager.getUserByID(userId));
             messageWithStatusCode.setStatusCode(200);
-            messageWithStatusCode.setMessage("Skill is removed successfully.");
+            messageWithStatusCode.setMessage("UserSkill is removed successfully.");
         } catch (SkillException | UserException e) {
             response.setStatus(404);
             messageWithStatusCode.setStatusCode(404);

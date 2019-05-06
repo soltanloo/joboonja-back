@@ -4,7 +4,7 @@ package Models;
 import java.util.ArrayList;
 
 public class User {
-    private String id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String jobTitle;
@@ -14,7 +14,7 @@ public class User {
 
     public User() {}
 
-    public User(String id, String firstName, String lastName, String jobTitle, String profilePictureURL,
+    public User(Integer id, String firstName, String lastName, String jobTitle, String profilePictureURL,
                 ArrayList<Skill> skills, String bio) {
         this.id = id;
         this.firstName = firstName;
@@ -37,11 +37,11 @@ public class User {
         this.skills.add(skill);
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

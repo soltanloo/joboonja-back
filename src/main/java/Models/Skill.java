@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Skill {
     private int id;
     private String name = "";
-    private ArrayList<String> endorsers;
+    private ArrayList<Integer> endorsers;
     private int point;
 
     public Skill() {
@@ -33,7 +33,7 @@ public class Skill {
         this.point = point;
     }
 
-    public Skill(String name, ArrayList<String> endorsers) {
+    public Skill(String name, ArrayList<Integer> endorsers) {
         this.name = name;
         this.endorsers = new ArrayList<>();
         this.endorsers = endorsers;
@@ -56,15 +56,15 @@ public class Skill {
         this.point = point;
     }
 
-    public ArrayList<String> getEndorsers() {
+    public ArrayList<Integer> getEndorsers() {
         return endorsers;
     }
 
-    public void setEndorsers(ArrayList<String> endorsers) {
+    public void setEndorsers(ArrayList<Integer> endorsers) {
         this.endorsers = endorsers;
     }
 
-    public void addEndorser(String id) {
+    public void addEndorser(Integer id) {
         this.endorsers.add(id);
         this.point++;
     }
@@ -72,4 +72,6 @@ public class Skill {
     public int getId() {
         return id;
     }
+
+    public void setId(Integer id) { this.id = id; }
 }

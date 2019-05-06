@@ -1,26 +1,27 @@
 package Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project{
     private String id;
     private String title;
     private String description;
     private String imageUrl;
     private ArrayList<Skill> skills = new ArrayList<>();
-
-    @JsonManagedReference
     private ArrayList<Bid> bids = new ArrayList<>();
     private int budget = 0;
     private long deadline;
-    private User winner;
+    private long creationDate;
+    private int winnerId;
 
     public Project() {}
 
     public Project(String id, String title, String description, String imageUrl, ArrayList<Skill> skills,
-                   ArrayList<Bid> bids, int budget, long deadline, User winner) {
+                   ArrayList<Bid> bids, int budget, long deadline, long creationDate, int winnerId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,7 +30,8 @@ public class Project{
         this.bids = bids;
         this.budget = budget;
         this.deadline = deadline;
-        this.winner = winner;
+        this.creationDate = creationDate;
+        this.winnerId = winnerId;
     }
 
     public String getId() {
@@ -100,11 +102,19 @@ public class Project{
         this.deadline = deadline;
     }
 
-    public User getWinner() {
-        return winner;
+    public int getWinnerId() {
+        return winnerId;
     }
 
-    public void setWinner(User winner) {
-        this.winner = winner;
+    public void setWinnerId(int winnerId) {
+        this.winnerId = winnerId;
+    }
+
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(long creationDate) {
+        this.creationDate = creationDate;
     }
 }

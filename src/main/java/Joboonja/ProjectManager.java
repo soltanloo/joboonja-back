@@ -8,26 +8,27 @@ import Models.Project;
 import Models.Skill;
 import Models.User;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProjectManager {
 
     public static void addProject(Project newProject) throws ProjectException {
-        if (Database.projects.stream().noneMatch(p -> (p.getId().equals(newProject.getId()))))
-            Database.projects.add(newProject);
+        if (!Database.projectMapper.projectExists(newProject.getId()))
+            Database.projectMapper.addProject(newProject);
         else
             throw new ProjectException("Project with ID \'" + newProject.getId() + "\' already exists.");
     }
 
-    public static void addBidToProject(int bidAmount, String userId, String projectId) throws UserException,
+    public static void addBidToProject(int bidAmount, Integer userId, String projectId) throws UserException,
             ProjectException, BidException {
         User user = UserManager.getUserByID(userId);
         Project project = ProjectManager.getProjectByID(projectId);
-        Bid newBid = new Bid(user, project, bidAmount);
-        if (project.getBids().stream().noneMatch(bid -> bid.getBiddingUser().getId().equals(userId))) {
+        Bid newBid = new Bid(userId, projectId, bidAmount);
+        if (project.getBids().stream().noneMatch(bid -> bid.getUserId() == userId)) {
             if (project.getBudget() >= newBid.getBidAmount()){
                 if (hasSkills(user, project)) {
-                    project.addBid(newBid);
+                    Database.projectMapper.addBid(newBid);
                 } else {
                     throw new BidException("User with id \'" + userId
                             + "\' does not have enough skills to bid on project with id \'" + projectId + "\'.");
@@ -43,16 +44,10 @@ public class ProjectManager {
     }
 
     public static Project getProjectByID(String id) throws ProjectException {
-        for (Project p :
-                Database.projects) {
-            if (p.getId().equals(id)) {
-                return p;
-            }
-        }
-        throw new ProjectException("Project with id \'" + id + "\' was not found.");
+        return Database.projectMapper.find(id);
     }
 
-    public static Boolean hasSkills(User user , Project project){
+    public static Boolean hasSkills(User user, Project project){
         int containedSkills = 0;
         boolean hasSkill = false;
         for (Skill s :
@@ -67,14 +62,20 @@ public class ProjectManager {
         return hasSkill;
     }
 
-    public static ArrayList<Project> getEligibleProjects(User user) {
+    public static ArrayList<Project> getEligibleProjects(User user, Integer page, Integer size) {
         ArrayList<Project> eligibleProjects = new ArrayList<Project>();
         for (Project p :
-                Database.projects) {
-            if (hasSkills(user, p)) {
+                Database.projectMapper.getPaginatedProjects(user.getId(), page, size)) {
+//            if (hasSkills(user, p)) {
                 eligibleProjects.add(p);
-            }
+//            }
         }
+        return eligibleProjects;
+    }
+
+    public static ArrayList<Project> getProjectsByQuery(User user, String query) {
+        ArrayList<Project> eligibleProjects;
+        eligibleProjects = Database.projectMapper.getProjectsByQuery(user.getId(), query);
         return eligibleProjects;
     }
 
@@ -82,17 +83,17 @@ public class ProjectManager {
         User winningBidder = new User();
         int maxSum = 0;
         for (Project p :
-                Database.projects) {
+                Database.projectMapper.getAllProjects()) {
             if (p.getId().equals(project.getId())){
                 for (Bid b :
                         p.getBids()) {
                     int sum = 0;
                     User biddingUser = new User();
                     for (User u :
-                            Database.users) {
+                            Database.userMapper.getAllUsers()) {
 
-                        if (u.getId().equals(b.getBiddingUser().getId())) {
-                            biddingUser = b.getBiddingUser();
+                        if (u.getId().equals(b.getUserId())) {
+                            biddingUser = Database.userMapper.find(b.getUserId());
                             for (Skill s :
                                     u.getSkills()) {
                                 for (Skill ps:

@@ -15,22 +15,42 @@ import javax.servlet.annotation.WebListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class JoboonjaContextListener implements ServletContextListener {
 
+    private ScheduledExecutorService scheduler;
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        Database.getInstance();
-        Parser parser = new Parser();
         try {
-            fetchURL(parser, "project");
-            fetchURL(parser, "skill");
-        } catch (IOException e) {
+            Database.getInstance();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+//        Parser parser = new Parser();
+//        try {
+//            fetchURL(parser, "project");
+//            fetchURL(parser, "skill");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(new ProjectsFetcher(), 0, 5, TimeUnit.MINUTES);
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent event) {
+        scheduler.shutdownNow();
     }
 
     private static void fetchURL(Parser parser, String kind) throws IOException {

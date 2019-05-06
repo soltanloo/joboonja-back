@@ -25,8 +25,17 @@ public class ProjectsServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
         if (request.getParameter("id") == null) {
-            ArrayList<Project> projects = ProjectManager.getEligibleProjects(UserManager.getCurrentUser());
-            String projectsJson = mapper.writeValueAsString(projects);
+            ArrayList<Project> projects;
+            String projectsJson;
+            if (request.getParameter("query") == null) {
+                projects = ProjectManager.getEligibleProjects(UserManager.getCurrentUser(),
+                        Integer.parseInt(request.getParameter("page")),
+                        Integer.parseInt(request.getParameter("size")));
+            } else {
+                projects = ProjectManager.getProjectsByQuery(UserManager.getCurrentUser(),
+                        request.getParameter("query"));
+            }
+            projectsJson = mapper.writeValueAsString(projects);
             out.println(projectsJson);
         } else {
             String projectId = request.getParameter("id");
@@ -34,10 +43,11 @@ public class ProjectsServlet extends HttpServlet {
                 ProjectWithBidStatus projectWithBidStatus = new ProjectWithBidStatus();
                 Project project = ProjectManager.getProjectByID(projectId);
 
-                if (ProjectManager.hasSkills(UserManager.getCurrentUser(), project)) {
+//                if (ProjectManager.hasSkills(UserManager.getCurrentUser(), project)) {
+                if (true) {
                     projectWithBidStatus.setProject(project);
                     Boolean hasBidden = project.getBids().stream()
-                            .anyMatch(bid -> bid.getBiddingUser().getId().equals(UserManager.getCurrentUser().getId()));
+                            .anyMatch(bid -> bid.getUserId() == UserManager.getCurrentUser().getId());
                     projectWithBidStatus.setHasBidden(hasBidden);
                     String projectJson = mapper.writeValueAsString(projectWithBidStatus);
                     out.println(projectJson);

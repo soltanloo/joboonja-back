@@ -11,7 +11,7 @@ public class UserWithMeta {
     private HashMap<String, Boolean> skillsEndorsed = new HashMap<>();
     private ArrayList<Skill> addableSkills = new ArrayList<>();
     private Boolean isCurrentUser;
-    private String myId;
+    private Integer myId;
 
     public User getUser() {
         return user;
@@ -45,11 +45,11 @@ public class UserWithMeta {
         isCurrentUser = currentUser;
     }
 
-    public String getMyId() {
+    public Integer getMyId() {
         return myId;
     }
 
-    public void setMyId(String myId) {
+    public void setMyId(Integer myId) {
         this.myId = myId;
     }
 }
