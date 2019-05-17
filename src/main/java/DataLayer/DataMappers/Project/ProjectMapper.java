@@ -83,7 +83,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
 
     public String getFindUnauctionedStatement() {
         return "SELECT * From Project" +
-                " WHERE not winnerId = 0 and deadline < ?";
+                " WHERE winnerId = 0 and deadline < ?";
     }
 
     public String getAddStatement() {
