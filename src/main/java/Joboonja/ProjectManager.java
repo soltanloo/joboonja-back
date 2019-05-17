@@ -89,11 +89,11 @@ public class ProjectManager {
                 for (Bid b :
                         p.getBids()) {
                     int sum = 0;
-                    User biddingUser = new User();
+                    User biddingUser = Database.userMapper.find(b.getUserId());
                     for (User u :
                             Database.userMapper.getAllUsers()) {
 
-                        if (u.getId().equals(b.getUserId())) {
+                        if (u.getId() == b.getUserId()) {
                             biddingUser = Database.userMapper.find(b.getUserId());
                             for (Skill s :
                                     u.getSkills()) {
