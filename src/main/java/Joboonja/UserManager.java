@@ -23,6 +23,17 @@ public class UserManager {
         else
             throw new UserException("User with username \'" + username + "\' already exists.");
     }
+    public static User validateCredentials(String username, String password) throws UserException {
+        if (Database.userMapper.userExists(username)) {
+            if (Database.userMapper.isValidPassword(username, password)) {
+                return Database.userMapper.findByUsername(username);
+            } else {
+                throw new UserException("Entered password is incorrect.");
+            }
+        }
+        else
+            throw new UserException("User with username \'" + username + "\' does not exist.");
+    }
     public static User getUserByID(Integer id) throws UserException {
         return Database.userMapper.find(id);
 //        throw new UserException("User with id \'" + id + "\' was not found.");

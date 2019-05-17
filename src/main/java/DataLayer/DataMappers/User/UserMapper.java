@@ -45,14 +45,23 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         return "SELECT (count(*) > 0) as found FROM User WHERE username = ?";
     }
 
+    public String getCheckPasswordStatement() {
+        return "SELECT (count(*) > 0) as found FROM User WHERE username = ? and password = ?";
+    }
+
     public String getFindAllStatement() {
         return "SELECT * FROM User" +
                 " WHERE not id = ?";
     }
 
+    public String getFindByUsernameStatement() {
+        return "SELECT * FROM User" +
+                " WHERE username = ?";
+    }
+
     public String getAddUserStatement() {
-        return "INSERT INTO User (firstName, lastName, jobTitle, profilePictureURL, bio)" +
-                " VALUES (?, ?, ?, ?, ?)";
+        return "INSERT INTO User (firstName, lastName, jobTitle, profilePictureURL, bio, username, password)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?)";
     }
 
     public String getFindQueriedStatement(String query) {
@@ -95,6 +104,27 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         return false;
     }
 
+    public Boolean isValidPassword(String username, String password) {
+        try (Connection con = DBCPDBConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(getCheckPasswordStatement())
+        ) {
+            st.setString(1, username);
+            st.setString(2, password);
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getBoolean(1);
+                }
+            } catch (SQLException ex) {
+                System.out.println("error in UserMapper.userExists query.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void addUser(User user, String username, String password) {
         try (Connection con = DBCPDBConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(getAddUserStatement());
@@ -104,6 +134,8 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
             st.setString(3, user.getJobTitle());
             st.setString(4, user.getProfilePictureURL());
             st.setString(5, user.getBio());
+            st.setString(6, username);
+            st.setString(7, password);
             try {
                 st.executeUpdate();
             } catch (SQLException ex) {
@@ -130,6 +162,26 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
                 return users;
             } catch (SQLException ex) {
                 System.out.println("error in ProjectMapper.getAllUsers query.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User findByUsername(String username){
+        try (Connection con = DBCPDBConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(getFindByUsernameStatement())
+        ) {
+            st.setString(1, username);
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                resultSet.next();
+                return convertResultSetToDomainModel(resultSet);
+            } catch (SQLException ex) {
+                System.out.println("error in Mapper.findByID query.");
+                throw ex;
             }
         } catch (SQLException e) {
             e.printStackTrace();
