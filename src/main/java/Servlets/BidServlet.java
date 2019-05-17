@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 public class BidServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User currentUser = (User) request.getAttribute("currentUser");
         ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -28,7 +29,7 @@ public class BidServlet extends HttpServlet {
         int bidAmount = Integer.valueOf(request.getParameter("bidAmount"));
         String projectId = request.getParameter("id");
         try {
-            ProjectManager.addBidToProject(bidAmount, UserManager.getCurrentUser().getId(), projectId);
+            ProjectManager.addBidToProject(bidAmount, currentUser.getId(), projectId);
             messageWithStatusCode.setStatusCode(200);
             messageWithStatusCode.setMessage("Bid is submitted successfully.");
         } catch (UserException | ProjectException e){

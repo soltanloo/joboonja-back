@@ -64,8 +64,8 @@ public class LoginServlet extends HttpServlet {
             messageWithStatusCode.setStatusCode(200);
             messageWithStatusCode.setMessage(jws);
         } catch (UserException e) {
-            response.setStatus(403);
-            messageWithStatusCode.setStatusCode(403);
+            response.setStatus(400);
+            messageWithStatusCode.setStatusCode(400);
             messageWithStatusCode.setMessage(e.getMessage());
         }
         String message = mapper.writeValueAsString(messageWithStatusCode);

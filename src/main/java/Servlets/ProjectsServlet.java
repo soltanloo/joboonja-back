@@ -6,6 +6,7 @@ import Exceptions.ProjectException;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
 import Models.Project;
+import Models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 @WebServlet(urlPatterns = "/projects")
 public class ProjectsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User currentUser = (User) request.getAttribute("currentUser");
         ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -28,11 +30,11 @@ public class ProjectsServlet extends HttpServlet {
             ArrayList<Project> projects;
             String projectsJson;
             if (request.getParameter("query") == null) {
-                projects = ProjectManager.getEligibleProjects(UserManager.getCurrentUser(),
+                projects = ProjectManager.getEligibleProjects(currentUser,
                         Integer.parseInt(request.getParameter("page")),
                         Integer.parseInt(request.getParameter("size")));
             } else {
-                projects = ProjectManager.getProjectsByQuery(UserManager.getCurrentUser(),
+                projects = ProjectManager.getProjectsByQuery(currentUser,
                         request.getParameter("query"));
             }
             projectsJson = mapper.writeValueAsString(projects);
@@ -47,15 +49,15 @@ public class ProjectsServlet extends HttpServlet {
                 if (true) {
                     projectWithBidStatus.setProject(project);
                     Boolean hasBidden = project.getBids().stream()
-                            .anyMatch(bid -> bid.getUserId() == UserManager.getCurrentUser().getId());
+                            .anyMatch(bid -> bid.getUserId() == currentUser.getId());
                     projectWithBidStatus.setHasBidden(hasBidden);
                     String projectJson = mapper.writeValueAsString(projectWithBidStatus);
                     out.println(projectJson);
                 } else {
                     MessageWithStatusCode messageWithStatusCode = new MessageWithStatusCode();
-                    messageWithStatusCode.setStatusCode(403);
+                    messageWithStatusCode.setStatusCode(400);
                     messageWithStatusCode.setMessage("You don't have enough skills to access project with id \'" + projectId + "\'.");
-                    response.setStatus(403);
+                    response.setStatus(400);
                     String message = mapper.writeValueAsString(messageWithStatusCode);
                     out.println(message);
                 }

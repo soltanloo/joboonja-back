@@ -2,12 +2,9 @@ package Servlets;
 
 import DTOs.MessageWithStatusCode;
 import DTOs.UserWithMeta;
-import Exceptions.SkillException;
 import Exceptions.UserException;
-import Joboonja.ProjectManager;
 import Joboonja.SkillManager;
 import Joboonja.UserManager;
-import Models.Project;
 import Models.Skill;
 import Models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +23,7 @@ import java.util.HashMap;
 public class UsersServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User currentUser = (User) request.getAttribute("currentUser");
         ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -49,17 +43,18 @@ public class UsersServlet extends HttpServlet {
                 UserWithMeta userWithMeta = new UserWithMeta();
                 User requestedUser = UserManager.getUserByID(userId);
                 boolean isCurrentUser;
-                isCurrentUser = UserManager.getCurrentUser().getId().equals(requestedUser.getId());
+                isCurrentUser = currentUser.getId().equals(requestedUser.getId());
                 for (Skill s:
                         requestedUser.getSkills()) {
-                    skillsEndorsed.put(s.getName(), s.getEndorsers().contains(UserManager.getCurrentUser().getId()));
+                    skillsEndorsed.put(s.getName(), s.getEndorsers().contains(currentUser.getId()));
                 }
                 userWithMeta.setUser(requestedUser);
                 userWithMeta.setSkillsEndorsed(skillsEndorsed);
-                userWithMeta.setAddableSkills(SkillManager.getAddableSkillsOfUser(UserManager.getCurrentUser().getId()));
+                userWithMeta.setAddableSkills(SkillManager.getAddableSkillsOfUser(currentUser.getId()));
                 userWithMeta.setIsCurrentUser(isCurrentUser);
-                userWithMeta.setMyId(UserManager.getCurrentUser().getId());
+                userWithMeta.setMyId(currentUser.getId());
                 String userJson = mapper.writeValueAsString(userWithMeta);
+                System.out.println(userJson);
                 out.println(userJson);
             } catch (UserException e) {
                 response.setStatus(404);

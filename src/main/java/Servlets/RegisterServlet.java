@@ -79,8 +79,8 @@ public class RegisterServlet extends HttpServlet {
             messageWithStatusCode.setStatusCode(200);
             messageWithStatusCode.setMessage("User is added successfully.");
         } catch (UserException e) {
-            response.setStatus(403);
-            messageWithStatusCode.setStatusCode(200);
+            response.setStatus(400);
+            messageWithStatusCode.setStatusCode(400);
             messageWithStatusCode.setMessage(e.getMessage());
         }
         String message = mapper.writeValueAsString(messageWithStatusCode);
