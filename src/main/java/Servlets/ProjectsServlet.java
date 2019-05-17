@@ -3,6 +3,7 @@ package Servlets;
 import DTOs.MessageWithStatusCode;
 import DTOs.ProjectWithBidStatus;
 import Exceptions.ProjectException;
+import Joboonja.Database;
 import Joboonja.ProjectManager;
 import Joboonja.UserManager;
 import Models.Project;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 @WebServlet(urlPatterns = "/projects")
 public class ProjectsServlet extends HttpServlet {
@@ -50,6 +52,11 @@ public class ProjectsServlet extends HttpServlet {
                     projectWithBidStatus.setProject(project);
                     Boolean hasBidden = project.getBids().stream()
                             .anyMatch(bid -> bid.getUserId() == currentUser.getId());
+                    if (project.getWinnerId() != 0) {
+                        projectWithBidStatus.setWinner(Database.userMapper.find(project.getWinnerId()));
+                    } else {
+                        projectWithBidStatus.setWinner(null);
+                    }
                     projectWithBidStatus.setHasBidden(hasBidden);
                     String projectJson = mapper.writeValueAsString(projectWithBidStatus);
                     out.println(projectJson);
