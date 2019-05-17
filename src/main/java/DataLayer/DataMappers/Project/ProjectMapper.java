@@ -91,7 +91,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
     }
 
     public String getAddBidStatement() {
-        return "INSERT OR IGNORE INTO Bid" +
+        return "INSERT INTO Bid" +
                 " VALUES (?, ?, ?)";
     }
 
@@ -257,8 +257,9 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
             st.setInt(3, b.getBidAmount());
             try {
                 st.executeUpdate();
+                System.out.println("ADDED BID");
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.addBid query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
