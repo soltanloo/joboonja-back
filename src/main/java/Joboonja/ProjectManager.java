@@ -79,13 +79,13 @@ public class ProjectManager {
         return eligibleProjects;
     }
 
-    public static User auction(Project project) {
+    public static User auction(Project p) {
         User winningBidder = new User();
         winningBidder.setId(0);
         int maxSum = 0;
-        for (Project p :
-                Database.projectMapper.getAllProjects()) {
-            if (p.getId().equals(project.getId())){
+//        for (Project p :
+//                Database.projectMapper.getAllProjects()) {
+//            if (p.getId().equals(project.getId())){
                 for (Bid b :
                         p.getBids()) {
                     int sum = 0;
@@ -112,8 +112,8 @@ public class ProjectManager {
                         winningBidder = biddingUser;
                     }
                 }
-            }
-        }
+//            }
+//        }
         return winningBidder;
     }
 }

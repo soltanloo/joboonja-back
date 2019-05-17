@@ -11,13 +11,10 @@ public class Auctioneer implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Auctioneering");
         ArrayList<Project> unauctionedProjects = Database.projectMapper.getUnauctionedProjects();
         for (Project p:
              unauctionedProjects) {
-            System.out.println("Auctioneering project " + p.getId());
             User winner = ProjectManager.auction(p);
-            System.out.println("Winner " + winner.getFirstName());
             Database.projectMapper.setWinner(p.getId(), winner.getId());
         }
 
