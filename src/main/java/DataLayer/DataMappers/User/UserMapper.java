@@ -42,7 +42,7 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
 
     @Override
     public String getCheckExistsStatement() {
-        return "SELECT (count(*) > 0) as found FROM User WHERE id = ?";
+        return "SELECT (count(*) > 0) as found FROM User WHERE username = ?";
     }
 
     public String getFindAllStatement() {
@@ -50,9 +50,9 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
                 " WHERE not id = ?";
     }
 
-    public String getAddStatement() {
-        return "INSERT INTO User" +
-                " VALUES (?, ?, ?, ?, ?, ?)";
+    public String getAddUserStatement() {
+        return "INSERT INTO User (firstName, lastName, jobTitle, profilePictureURL, bio)" +
+                " VALUES (?, ?, ?, ?, ?)";
     }
 
     public String getFindQueriedStatement(String query) {
@@ -75,11 +75,11 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         );
     }
 
-    public Boolean userExists(Integer id) {
+    public Boolean userExists(String username) {
         try (Connection con = DBCPDBConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(getCheckExistsStatement())
         ) {
-            st.setString(1, id.toString());
+            st.setString(1, username);
             ResultSet resultSet;
             try {
                 resultSet = st.executeQuery();
@@ -87,7 +87,7 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
                     return resultSet.getBoolean(1);
                 }
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.userExists query.");
+                System.out.println("error in UserMapper.userExists query.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,20 +95,19 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         return false;
     }
 
-    public void addUser(User user) {
+    public void addUser(User user, String username, String password) {
         try (Connection con = DBCPDBConnectionPool.getConnection();
-             PreparedStatement st = con.prepareStatement(getAddStatement())
+             PreparedStatement st = con.prepareStatement(getAddUserStatement());
         ) {
-            st.setString(1, user.getId().toString());
-            st.setString(2, user.getFirstName());
-            st.setString(3, user.getLastName());
-            st.setString(4, user.getJobTitle());
-            st.setString(5, user.getProfilePictureURL());
-            st.setString(6, user.getBio());
+            st.setString(1, user.getFirstName());
+            st.setString(2, user.getLastName());
+            st.setString(3, user.getJobTitle());
+            st.setString(4, user.getProfilePictureURL());
+            st.setString(5, user.getBio());
             try {
                 st.executeUpdate();
             } catch (SQLException ex) {
-                System.out.println("error in SkillMapper.addSkill query.");
+                System.out.println("error in UserMapper.addUser query.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
