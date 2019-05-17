@@ -8,6 +8,7 @@ import Models.Skill;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ProjectMapper extends Mapper<Project, String> implements IProjectMapper {
 
@@ -80,6 +81,11 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 " WHERE projectId = ?";
     }
 
+    public String getFindUnauctionedStatement() {
+        return "SELECT * From Project" +
+                " WHERE not winnerId = 0 and deadline < ?";
+    }
+
     public String getAddStatement() {
         return "INSERT OR IGNORE INTO Project" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -93,6 +99,12 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
     public String getAddBidStatement() {
         return "INSERT INTO Bid" +
                 " VALUES (?, ?, ?)";
+    }
+
+    public String getSetWinnerStatement() {
+        return "UPDATE Project" +
+                " SET winnerId = ?" +
+                " WHERE id = ?";
     }
 
     @Override
@@ -332,6 +344,45 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<Project> getUnauctionedProjects() {
+        try (Connection con = DBCPDBConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(getFindUnauctionedStatement())
+        ) {
+            st.setLong(1, new Date().getTime());
+            ResultSet resultSet;
+            try {
+                resultSet = st.executeQuery();
+                ArrayList<Project> projects = new ArrayList<>();
+                while (resultSet.next()) {
+                    Project project = convertResultSetToDomainModel(resultSet);
+                    projects.add(project);
+                }
+                return projects;
+            } catch (SQLException ex) {
+                System.out.println("error in ProjectMapper.getUnauctionedProjects query.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setWinner(String projectId, Integer winnerId) {
+        try (Connection con = DBCPDBConnectionPool.getConnection();
+             PreparedStatement st = con.prepareStatement(getSetWinnerStatement())
+        ) {
+            st.setInt(1, winnerId);
+            st.setString(2, projectId);
+            try {
+                st.executeUpdate();
+            } catch (SQLException ex) {
+                System.out.println("error in ProjectMapper.getUnauctionedProjects query.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

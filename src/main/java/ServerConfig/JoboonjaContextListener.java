@@ -46,6 +46,7 @@ public class JoboonjaContextListener implements ServletContextListener {
 //        }
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new ProjectsFetcher(), 0, 5, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(new Auctioneer(), 0, 1, TimeUnit.MINUTES);
     }
 
     @Override

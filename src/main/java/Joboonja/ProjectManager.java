@@ -81,6 +81,7 @@ public class ProjectManager {
 
     public static User auction(Project project) {
         User winningBidder = new User();
+        winningBidder.setId(0);
         int maxSum = 0;
         for (Project p :
                 Database.projectMapper.getAllProjects()) {
