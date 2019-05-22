@@ -5,7 +5,7 @@ import DataLayer.DBConnectionPool.impl.SQLiteBasicDBConnectionPool;
 
 public class ConnectionPool {
 
-    private final static String dbURL = "jdbc:sqlite:joboonja.db";
+    private final static String dbURL = "jdbc:mysql://db/joboonja";
     private static BasicDBConnectionPool instance;
 
     public static BasicDBConnectionPool getInstance() {

@@ -18,17 +18,19 @@ import java.sql.SQLException;
 public class DBCPDBConnectionPool {
 
     private static BasicDataSource ds = new BasicDataSource();
-    private final static String dbURL = "jdbc:sqlite:/Users/thesoli/Desktop/Courses/6-Spring98/IE/CAs/CA5/joboonja-back/joboonja.db";
+    private final static String dbURL = "jdbc:mysql://db/joboonja";
 
     static {
         ds.setUrl(dbURL);
+        ds.setUsername("root");
+        ds.setPassword("root");
         ds.setMinIdle(1);
         ds.setMaxIdle(2);
     }
 
     public static Connection getConnection() throws SQLException {
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
