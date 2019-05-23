@@ -20,13 +20,19 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         Statement st =
                 con.createStatement();
 
-        st.executeUpdate("CREATE TABLE IF NOT EXISTS User" +
-                "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-                "firstName TEXT NOT NULL," +
-                "lastName TEXT NOT NULL," +
-                "jobTitle TEXT NOT NULL," +
-                "profilePictureURL TEXT," +
-                "bio TEXT)");
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS `User` (\n" +
+                "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
+                "  `firstName` varchar(50) NOT NULL,\n" +
+                "  `lastName` varchar(50) DEFAULT NULL,\n" +
+                "  `jobTitle` varchar(50) DEFAULT NULL,\n" +
+                "  `profilePictureURL` varchar(200) DEFAULT NULL,\n" +
+                "  `bio` varchar(2000) DEFAULT NULL,\n" +
+                "  `username` varchar(50) NOT NULL,\n" +
+                "  `password` varchar(50) NOT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
+                "  UNIQUE KEY `username_UNIQUE` (`username`)\n" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
 
         st.close();
         con.close();
@@ -162,6 +168,7 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
                 return users;
             } catch (SQLException ex) {
                 System.out.println("error in ProjectMapper.getAllUsers query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();

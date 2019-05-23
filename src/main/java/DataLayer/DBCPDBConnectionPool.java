@@ -18,19 +18,19 @@ import java.sql.SQLException;
 public class DBCPDBConnectionPool {
 
     private static BasicDataSource ds = new BasicDataSource();
-    private final static String dbURL = "jdbc:mysql://db/joboonja";
+    private final static String dbURL = "jdbc:mysql://localhost:3306/joboonja";
 
     static {
         ds.setUrl(dbURL);
         ds.setUsername("root");
-        ds.setPassword("root");
+        ds.setPassword("1234");
         ds.setMinIdle(1);
         ds.setMaxIdle(2);
     }
 
     public static Connection getConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

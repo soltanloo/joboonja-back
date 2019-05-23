@@ -20,18 +20,20 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
         Statement st =
                 con.createStatement();
 
-        st.executeUpdate("CREATE TABLE IF NOT EXISTS Project" +
-                "(id TEXT NOT NULL UNIQUE," +
-                "title TEXT," +
-                "description TEXT," +
-                "imageURL TEXT," +
-                "budget INTEGER," +
-                "deadline INTEGER," +
-                "creationDate INTEGER," +
-                "winnerId INTEGER," +
-                "FOREIGN KEY(winnerId) REFERENCES User(id)," +
-                "PRIMARY KEY(id)" +
-                ");");
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS `Project` (\n" +
+                "  `id` varchar(50) NOT NULL,\n" +
+                "  `title` varchar(100) NOT NULL,\n" +
+                "  `description` varchar(2000) DEFAULT NULL,\n" +
+                "  `imageURL` varchar(200) DEFAULT NULL,\n" +
+                "  `budget` int(15) NOT NULL,\n" +
+                "  `deadline` int(50) NOT NULL,\n" +
+                "  `creationDate` int(50) NOT NULL,\n" +
+                "  `winnerId` int(15) DEFAULT NULL,\n" +
+                "  PRIMARY KEY (`id`),\n" +
+                "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
+                "  KEY `winnerId_fk_idx` (`winnerId`),\n" +
+                "  CONSTRAINT `Project_winnerId_fk` FOREIGN KEY (`winnerId`) REFERENCES `User` (`id`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
 
         st.close();
         con.close();
@@ -87,12 +89,12 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
     }
 
     public String getAddStatement() {
-        return "INSERT OR IGNORE INTO Project" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        return "INSERT IGNORE INTO Project" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
     public String getAddRequirementStatement() {
-        return "INSERT OR IGNORE INTO ProjectRequirement" +
+        return "INSERT IGNORE INTO ProjectRequirement" +
                 " VALUES (?, ?, ?)";
     }
 
@@ -154,10 +156,16 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
             ResultSet resultSet;
             try {
                 resultSet = st.executeQuery();
-                resultSet.next();
-                return convertResultSetToDomainModel(resultSet);
+                if (resultSet.next())
+                    return convertResultSetToDomainModel(resultSet);
+                else {
+                    Project last = new Project();
+                    last.setCreationDate(0);
+                    return last;
+                }
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.getAllUsers query.");
+                System.out.println("error in ProjectMapper.getLastProject query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -223,7 +231,9 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
             st.setInt(5, project.getBudget());
             st.setLong(6, project.getDeadline());
             st.setLong(7, project.getCreationDate());
-            st.setInt(8, project.getWinnerId());
+            if (project.getWinnerId() != 0)
+                st.setInt(8, project.getWinnerId());
+            else st.setString(8, null);
             try {
                 st.executeUpdate();
                 for (Skill s:
@@ -236,6 +246,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 }
             } catch (SQLException ex) {
                 System.out.println("error in ProjectMapper.addProject query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -292,7 +303,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 }
                 return projects;
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.getAllUsers query.");
+                System.out.println("error in ProjectMapper.getAllProjects query.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -316,7 +327,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 }
                 return projects;
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.getAllUsers query.");
+                System.out.println("error in ProjectMapper.getPaginatedProjects query.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -338,7 +349,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 }
                 return projects;
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.getAllUsers query.");
+                System.out.println("error in ProjectMapper.getProjectsByQuery query.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

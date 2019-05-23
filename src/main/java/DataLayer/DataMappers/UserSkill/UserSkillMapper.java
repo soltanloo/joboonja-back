@@ -19,9 +19,14 @@ public class UserSkillMapper extends Mapper<Skill, Integer> implements IUserSkil
         Statement st =
                 con.createStatement();
 
-        String query = "CREATE TABLE IF NOT EXISTS UserSkill " +
-                "(name TEXT NOT NULL UNIQUE, " +
-                "PRIMARY KEY(name))";
+        String query = "CREATE TABLE IF NOT EXISTS `UserSkill` (\n" +
+                "  `userId` int(15) NOT NULL,\n" +
+                "  `skillName` varchar(50) NOT NULL,\n" +
+                "  PRIMARY KEY (`userId`,`skillName`),\n" +
+                "  KEY `UserSkill_skillName_fk_idx` (`skillName`),\n" +
+                "  CONSTRAINT `UserSkill_skillName_fk` FOREIGN KEY (`skillName`) REFERENCES `Skill` (`name`),\n" +
+                "  CONSTRAINT `UserSkill_userId_fk` FOREIGN KEY (`userId`) REFERENCES `User` (`id`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
 
         st.executeUpdate(query);
 
@@ -156,6 +161,7 @@ public class UserSkillMapper extends Mapper<Skill, Integer> implements IUserSkil
                 st.executeUpdate();
             } catch (SQLException ex) {
                 System.out.println("error in UserSkillMapper.addUserSkill query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ProjectsFetcher implements Runnable {
@@ -28,7 +29,7 @@ public class ProjectsFetcher implements Runnable {
             String responseBody = scanner.useDelimiter("\\A").next();
             ArrayList<Project> projects = parser.parseProjects(responseBody);
             Project lastProject = Database.projectMapper.getLastProject();
-            Long lastDate = lastProject.getCreationDate();
+            long lastDate = lastProject.getCreationDate();
             for (Project p:
                     projects) {
                 if (p.getCreationDate() > lastDate) {

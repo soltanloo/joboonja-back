@@ -19,9 +19,11 @@ public class SkillMapper extends Mapper<String, String> implements ISkillMapper 
         Statement st =
                 con.createStatement();
 
-        String query = "CREATE TABLE IF NOT EXISTS Skill (" +
-                "name	TEXT NOT NULL UNIQUE," +
-                "PRIMARY KEY(name))";
+        String query = "CREATE TABLE IF NOT EXISTS `Skill` (\n" +
+                "  `name` varchar(50) NOT NULL,\n" +
+                "  PRIMARY KEY (`name`),\n" +
+                "  UNIQUE KEY `name_UNIQUE` (`name`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
 
         st.executeUpdate(query);
 
