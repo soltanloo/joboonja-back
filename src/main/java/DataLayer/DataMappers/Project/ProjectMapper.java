@@ -85,7 +85,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
 
     public String getFindUnauctionedStatement() {
         return "SELECT * From Project" +
-                " WHERE winnerId = 0 and deadline < ?";
+                " WHERE winnerId is NULL and deadline < ?";
     }
 
     public String getAddStatement() {
@@ -373,6 +373,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 return projects;
             } catch (SQLException ex) {
                 System.out.println("error in ProjectMapper.getUnauctionedProjects query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -384,12 +385,16 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
         try (Connection con = DBCPDBConnectionPool.getConnection();
              PreparedStatement st = con.prepareStatement(getSetWinnerStatement())
         ) {
-            st.setInt(1, winnerId);
+            if (winnerId == 0)
+                st.setString(1, null);
+            else
+                st.setInt(1, winnerId);
             st.setString(2, projectId);
             try {
                 st.executeUpdate();
             } catch (SQLException ex) {
-                System.out.println("error in ProjectMapper.getUnauctionedProjects query.");
+                System.out.println("error in ProjectMapper.setWinner query.");
+                ex.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
