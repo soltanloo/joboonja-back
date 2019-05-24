@@ -7,6 +7,7 @@ import Models.User;
 import ServerConfig.PrivateKey;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

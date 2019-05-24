@@ -26,14 +26,36 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 "  `description` varchar(2000) DEFAULT NULL,\n" +
                 "  `imageURL` varchar(200) DEFAULT NULL,\n" +
                 "  `budget` int(15) NOT NULL,\n" +
-                "  `deadline` int(50) NOT NULL,\n" +
-                "  `creationDate` int(50) NOT NULL,\n" +
+                "  `deadline` bigint(50) NOT NULL,\n" +
+                "  `creationDate` bigint(50) NOT NULL,\n" +
                 "  `winnerId` int(15) DEFAULT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
                 "  KEY `winnerId_fk_idx` (`winnerId`),\n" +
                 "  CONSTRAINT `Project_winnerId_fk` FOREIGN KEY (`winnerId`) REFERENCES `User` (`id`)\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS `Bid` (\n" +
+                "  `userId` int(20) NOT NULL,\n" +
+                "  `projectId` varchar(50) NOT NULL,\n" +
+                "  `bidAmount` int(20) NOT NULL,\n" +
+                "  KEY `Bid_projectId_fk_idx` (`projectId`),\n" +
+                "  KEY `Bid_userId_fk_idx` (`userId`),\n" +
+                "  CONSTRAINT `Bid_projectId_fk` FOREIGN KEY (`projectId`) REFERENCES `Project` (`id`),\n" +
+                "  CONSTRAINT `Bid_userId_fk` FOREIGN KEY (`userId`) REFERENCES `User` (`id`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS `ProjectRequirement` (\n" +
+                "  `projectId` varchar(50) NOT NULL,\n" +
+                "  `skillName` varchar(50) NOT NULL,\n" +
+                "  `point` int(15) NOT NULL,\n" +
+                "  PRIMARY KEY (`projectId`,`skillName`),\n" +
+                "  KEY `skillName_fk_idx` (`skillName`),\n" +
+                "  KEY `ProjectRequirement_skillName_fk_idx` (`skillName`),\n" +
+                "  CONSTRAINT `ProjectRequirement_projectId_fk` FOREIGN KEY (`projectId`) REFERENCES `Project` (`id`),\n" +
+                "  CONSTRAINT `ProjectRequirement_skillName_fk` FOREIGN KEY (`skillName`) REFERENCES `Skill` (`name`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+
 
         st.close();
         con.close();

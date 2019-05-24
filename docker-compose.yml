@@ -4,25 +4,21 @@ services:
   client:
     build: ../joboonja-front
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - server
-    networks:
-      - joboonjanet
   server:
     build: .
     ports:
-      - "8000:8000"
+      - "8000:8080"
     depends_on:
       - db
-    networks:
-      - joboonjanet
   db:
     image: mysql
-#    restart: always
+    restart: always
     container_name: db
     environment:
-      - MYSQL_DATABASE=joboonja
+#      - MYSQL_DATABASE=joboonja
       - MYSQL_ROOT_PASSWORD=1234
 #      - MYSQL_USER=admin
 #      - MYSQL_PASSWORD=1234
@@ -31,10 +27,5 @@ services:
     expose:
       - "3306"
     volumes:
-      - ./database:/docker-entrypoint-initdb.d
-    networks:
-      - joboonjanet
-
-networks:
-  joboonjanet:
-    driver: bridge
+      - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/mysql:/var/lib/mysql

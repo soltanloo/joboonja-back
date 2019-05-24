@@ -30,6 +30,18 @@ public class UserSkillMapper extends Mapper<Skill, Integer> implements IUserSkil
 
         st.executeUpdate(query);
 
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS `Endorsement` (\n" +
+                "  `endorserId` int(15) NOT NULL,\n" +
+                "  `endorsedId` int(15) NOT NULL,\n" +
+                "  `skillName` varchar(50) NOT NULL,\n" +
+                "  KEY `Endorsement_endorsedId_fk_idx` (`endorsedId`),\n" +
+                "  KEY `Endorsement_endorserId_fk_idx` (`endorserId`),\n" +
+                "  KEY `Endorsement_skillName_fk_idx` (`skillName`),\n" +
+                "  CONSTRAINT `Endorsement_endorsedId_fk` FOREIGN KEY (`endorsedId`) REFERENCES `User` (`id`),\n" +
+                "  CONSTRAINT `Endorsement_endorserId_fk` FOREIGN KEY (`endorserId`) REFERENCES `User` (`id`),\n" +
+                "  CONSTRAINT `Endorsement_skillName_fk` FOREIGN KEY (`skillName`) REFERENCES `Skill` (`name`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+
         st.close();
         con.close();
 

@@ -56,8 +56,7 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
     }
 
     public String getFindAllStatement() {
-        return "SELECT * FROM User" +
-                " WHERE not id = ?";
+        return "SELECT * FROM User";
     }
 
     public String getFindByUsernameStatement() {
@@ -73,7 +72,7 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
     public String getFindQueriedStatement(String query) {
         return "SELECT * FROM User" +
                 " WHERE (firstName LIKE '%" + query +
-                "%' or lastName LIKE '%" + query + "%') and not id = ?";
+                "%' or lastName LIKE '%" + query + "%')";
     }
 
 
@@ -158,7 +157,6 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         ) {
             ResultSet resultSet;
             try {
-                st.setInt(1, UserManager.getCurrentUser().getId());
                 resultSet = st.executeQuery();
                 ArrayList<User> users = new ArrayList<>();
                 while (resultSet.next()) {
@@ -202,7 +200,6 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
         ) {
             ResultSet resultSet;
             try {
-                st.setInt(1, UserManager.getCurrentUser().getId());
                 resultSet = st.executeQuery();
                 ArrayList<User> users = new ArrayList<>();
                 while (resultSet.next()) {

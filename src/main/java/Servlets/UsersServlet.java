@@ -31,8 +31,10 @@ public class UsersServlet extends HttpServlet {
             ArrayList<User> users;
             if (request.getParameter("query") == null) {
                 users = UserManager.getUsers();
+                users.removeIf(user -> user.getId().equals(currentUser.getId()));
             } else {
                 users = UserManager.getUsersByQuery(request.getParameter("query"));
+                users.removeIf(user -> user.getId().equals(currentUser.getId()));
             }
             String usersJson = mapper.writeValueAsString(users);
             out.println(usersJson);

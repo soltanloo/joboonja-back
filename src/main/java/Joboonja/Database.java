@@ -13,16 +13,16 @@ import java.util.ArrayList;
 
 public class Database {
     public static UserMapper userMapper;
-    public static UserSkillMapper userSkillMapper;
-    public static SkillMapper skillMapper;
     public static ProjectMapper projectMapper;
+    public static SkillMapper skillMapper;
+    public static UserSkillMapper userSkillMapper;
 
     static {
         try {
             userMapper = new UserMapper();
-            userSkillMapper = new UserSkillMapper();
             skillMapper = new SkillMapper();
             projectMapper = new ProjectMapper();
+            userSkillMapper = new UserSkillMapper();
         } catch (SQLException e) {
             e.printStackTrace();
         }

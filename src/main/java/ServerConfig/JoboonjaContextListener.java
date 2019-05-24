@@ -37,13 +37,12 @@ public class JoboonjaContextListener implements ServletContextListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        Parser parser = new Parser();
-//        try {
-//            fetchURL(parser, "project");
-//            fetchURL(parser, "skill");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Parser parser = new Parser();
+        try {
+            fetchURL(parser, "skill");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new ProjectsFetcher(), 0, 5, TimeUnit.MINUTES);
         scheduler.scheduleAtFixedRate(new Auctioneer(), 0, 1, TimeUnit.MINUTES);

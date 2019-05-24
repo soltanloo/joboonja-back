@@ -1,6 +1,7 @@
 package ServerConfig;
 
 import Joboonja.Database;
+import Joboonja.UserManager;
 import Models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -33,7 +34,7 @@ public class JWTFilter implements Filter {
         String path = httpRequest.getRequestURI();
         System.out.println("-----------------");
         System.out.println(path);
-        if (!path.startsWith("/auth") && !httpRequest.getMethod().equals("OPTIONS")) {
+        if (!path.contains("/auth") && !httpRequest.getMethod().equals("OPTIONS")) {
 
             String jwt = getJWTToken(httpRequest);
             System.out.println(httpRequest.getMethod());
@@ -48,7 +49,6 @@ public class JWTFilter implements Filter {
                     jws = Jwts.parser()
                             .setSigningKey(PrivateKey.getKey())
                             .parseClaimsJws(jwt);
-
                     User u = Database.userMapper.find(Integer.parseInt(String.valueOf(jws.getBody().get("userId"))));
 
                     servletRequest.setAttribute("currentUser", u);
@@ -59,6 +59,7 @@ public class JWTFilter implements Filter {
                 }
             }
             catch (Exception e) {
+                e.printStackTrace();
                 if (noJwt) {
                     HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
                     httpResponse.setStatus(403);
