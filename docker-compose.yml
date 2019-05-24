@@ -2,7 +2,7 @@ version: '3'
 
 services:
   client:
-    build: ../joboonja-front
+    build: ./joboonja-front/
     ports:
       - "3000:80"
     depends_on:
@@ -22,10 +22,7 @@ services:
     restart: always
     container_name: db
     environment:
-#      - MYSQL_DATABASE=joboonja
       - MYSQL_ROOT_PASSWORD=1234
-#      - MYSQL_USER=admin
-#      - MYSQL_PASSWORD=1234
     ports:
       - "3306:3306"
     expose:

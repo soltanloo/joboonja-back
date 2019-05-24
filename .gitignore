@@ -138,4 +138,4 @@ buildNumber.properties
 # End of https://www.gitignore.io/api/visualstudiocode
 .classpath
 .project
-database/mysql/
+database/mysql/*
