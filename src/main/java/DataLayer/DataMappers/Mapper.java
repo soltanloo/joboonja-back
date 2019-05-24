@@ -25,8 +25,8 @@ public abstract class Mapper<T, I> implements IMapper<T, I> {
             ResultSet resultSet;
             try {
                 resultSet = st.executeQuery();
-                resultSet.next();
-                return convertResultSetToDomainModel(resultSet);
+                if (resultSet.next())
+                    return convertResultSetToDomainModel(resultSet);
             } catch (SQLException ex) {
                 System.out.println("error in Mapper.findByID query.");
                 throw ex;
