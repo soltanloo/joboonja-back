@@ -28,7 +28,7 @@ public class DBCPDBConnectionPool {
         ds.setMaxIdle(2);
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
