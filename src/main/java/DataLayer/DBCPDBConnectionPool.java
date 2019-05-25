@@ -34,7 +34,13 @@ public class DBCPDBConnectionPool {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return ds.getConnection();
+        while (true) {
+            try {
+                return ds.getConnection();
+            } catch (SQLException ex) {
+                continue;
+            }
+        }
     }
 
     private DBCPDBConnectionPool(){ }
