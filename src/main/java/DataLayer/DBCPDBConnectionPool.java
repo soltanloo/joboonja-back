@@ -23,7 +23,7 @@ public class DBCPDBConnectionPool {
     static {
         ds.setUrl(dbURL);
         ds.setUsername("root");
-        ds.setPassword("1234");
+        ds.setPassword("root");
         ds.setMinIdle(1);
         ds.setMaxIdle(2);
     }
