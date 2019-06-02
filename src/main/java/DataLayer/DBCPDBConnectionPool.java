@@ -38,6 +38,7 @@ public class DBCPDBConnectionPool {
             try {
                 return ds.getConnection();
             } catch (SQLException ex) {
+                ex.printStackTrace();
                 continue;
             }
         }
