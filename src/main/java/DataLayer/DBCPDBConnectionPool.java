@@ -5,6 +5,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 public class DBCPDBConnectionPool {
 
     private static BasicDataSource ds = new BasicDataSource();
-    private final static String dbURL = "jdbc:mysql://185.166.107.169:31135/joboonja";
+    private final static String dbURL = "jdbc:mysql://185.166.107.169:31135/joboonja?useUnicode=yes&characterEncoding=UTF-8";
 
     static {
         ds.setUrl(dbURL);
@@ -26,6 +27,24 @@ public class DBCPDBConnectionPool {
         ds.setPassword("root");
         ds.setMinIdle(1);
         ds.setMaxIdle(2);
+        setEncoding();
+    }
+
+    private static String getAlterTableString() {
+        return "ALTER DATABASE joboonja CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
+    }
+
+    private static void setEncoding() {
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            statement.execute(getAlterTableString());
+            connection.close();
+            statement.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static Connection getConnection() {
