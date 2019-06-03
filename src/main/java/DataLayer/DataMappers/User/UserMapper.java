@@ -32,7 +32,7 @@ public class UserMapper extends Mapper<User, Integer> implements IUserMapper {
                 "  PRIMARY KEY (`id`),\n" +
                 "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
                 "  UNIQUE KEY `username_UNIQUE` (`username`)\n" +
-                ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+                ") ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
         st.close();
         con.close();

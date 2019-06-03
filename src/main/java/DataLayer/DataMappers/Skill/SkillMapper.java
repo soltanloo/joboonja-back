@@ -23,7 +23,7 @@ public class SkillMapper extends Mapper<String, String> implements ISkillMapper 
                 "  `name` varchar(50) NOT NULL,\n" +
                 "  PRIMARY KEY (`name`),\n" +
                 "  UNIQUE KEY `name_UNIQUE` (`name`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
 
         st.executeUpdate(query);
 

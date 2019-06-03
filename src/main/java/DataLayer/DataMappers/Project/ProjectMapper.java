@@ -33,7 +33,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
                 "  KEY `winnerId_fk_idx` (`winnerId`),\n" +
                 "  CONSTRAINT `Project_winnerId_fk` FOREIGN KEY (`winnerId`) REFERENCES `User` (`id`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
         st.executeUpdate("CREATE TABLE IF NOT EXISTS `Bid` (\n" +
                 "  `userId` int(20) NOT NULL,\n" +
@@ -43,7 +43,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 "  KEY `Bid_userId_fk_idx` (`userId`),\n" +
                 "  CONSTRAINT `Bid_projectId_fk` FOREIGN KEY (`projectId`) REFERENCES `Project` (`id`),\n" +
                 "  CONSTRAINT `Bid_userId_fk` FOREIGN KEY (`userId`) REFERENCES `User` (`id`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
         st.executeUpdate("CREATE TABLE IF NOT EXISTS `ProjectRequirement` (\n" +
                 "  `projectId` varchar(50) NOT NULL,\n" +
@@ -54,7 +54,7 @@ public class ProjectMapper extends Mapper<Project, String> implements IProjectMa
                 "  KEY `ProjectRequirement_skillName_fk_idx` (`skillName`),\n" +
                 "  CONSTRAINT `ProjectRequirement_projectId_fk` FOREIGN KEY (`projectId`) REFERENCES `Project` (`id`),\n" +
                 "  CONSTRAINT `ProjectRequirement_skillName_fk` FOREIGN KEY (`skillName`) REFERENCES `Skill` (`name`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 
         st.close();

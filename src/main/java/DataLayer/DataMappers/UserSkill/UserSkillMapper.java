@@ -26,7 +26,7 @@ public class UserSkillMapper extends Mapper<Skill, Integer> implements IUserSkil
                 "  KEY `UserSkill_skillName_fk_idx` (`skillName`),\n" +
                 "  CONSTRAINT `UserSkill_skillName_fk` FOREIGN KEY (`skillName`) REFERENCES `Skill` (`name`),\n" +
                 "  CONSTRAINT `UserSkill_userId_fk` FOREIGN KEY (`userId`) REFERENCES `User` (`id`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci";
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
 
         st.executeUpdate(query);
 
@@ -40,7 +40,7 @@ public class UserSkillMapper extends Mapper<Skill, Integer> implements IUserSkil
                 "  CONSTRAINT `Endorsement_endorsedId_fk` FOREIGN KEY (`endorsedId`) REFERENCES `User` (`id`),\n" +
                 "  CONSTRAINT `Endorsement_endorserId_fk` FOREIGN KEY (`endorserId`) REFERENCES `User` (`id`),\n" +
                 "  CONSTRAINT `Endorsement_skillName_fk` FOREIGN KEY (`skillName`) REFERENCES `Skill` (`name`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci");
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
         st.close();
         con.close();
