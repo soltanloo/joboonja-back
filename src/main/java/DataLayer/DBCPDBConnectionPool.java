@@ -19,7 +19,7 @@ import java.sql.Statement;
 public class DBCPDBConnectionPool {
 
     private static BasicDataSource ds = new BasicDataSource();
-    private final static String dbURL = "jdbc:mysql://185.166.107.169:30606/joboonja?useUnicode=yes&characterEncoding=UTF-8";
+    private final static String dbURL = "jdbc:mysql://db:3306/joboonja?useUnicode=yes&characterEncoding=UTF-8";
 
     static {
         ds.setUrl(dbURL);
